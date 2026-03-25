@@ -1,0 +1,14 @@
+# Зависимости (самые тяжелые папки)
+backend/node_modules
+frontend/node_modules
+
+# Секретные файлы (твой пароль от базы)
+backend/.env
+
+# Папки сборки
+frontend/dist
+frontend/vite.config.js
+
+# Логи и мусор системы
+npm-debug.log*
+.DS_Store

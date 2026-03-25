@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #050508;
+    color: #e0e0ff;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0d0d14;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #00ff87;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: rgba(0, 255, 135, 0.3);
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* ── Neon Buttons ─────────────────────────────────────────── */
+  .btn-neon {
+    @apply relative inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold text-dark-900 bg-neon-green rounded-lg transition-all duration-200 overflow-hidden cursor-pointer select-none;
+    box-shadow: 0 0 15px rgba(0, 255, 135, 0.4);
+  }
+  .btn-neon:hover {
+    @apply scale-105;
+    box-shadow: 0 0 30px rgba(0, 255, 135, 0.7), 0 0 60px rgba(0, 255, 135, 0.3);
+  }
+  .btn-neon:active {
+    @apply scale-95;
+  }
+
+  .btn-neon-outline {
+    @apply relative inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold text-neon-green border border-neon-green rounded-lg transition-all duration-200 cursor-pointer select-none;
+    box-shadow: inset 0 0 10px rgba(0, 255, 135, 0.1);
+  }
+  .btn-neon-outline:hover {
+    @apply bg-neon-green text-dark-900;
+    box-shadow: 0 0 20px rgba(0, 255, 135, 0.5);
+  }
+
+  .btn-purple {
+    @apply relative inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold text-white bg-neon-purple rounded-lg transition-all duration-200 cursor-pointer select-none;
+    box-shadow: 0 0 15px rgba(191, 90, 242, 0.4);
+  }
+  .btn-purple:hover {
+    @apply scale-105;
+    box-shadow: 0 0 30px rgba(191, 90, 242, 0.7);
+  }
+
+  /* ── Cards ────────────────────────────────────────────────── */
+  .cyber-card {
+    @apply relative bg-dark-700 border border-dark-500 rounded-xl p-6 transition-all duration-300;
+  }
+  .cyber-card:hover {
+    @apply border-neon-green/30;
+    box-shadow: 0 0 20px rgba(0, 255, 135, 0.1);
+  }
+
+  .cyber-card-purple:hover {
+    @apply border-neon-purple/30;
+    box-shadow: 0 0 20px rgba(191, 90, 242, 0.1);
+  }
+
+  /* ── Inputs ───────────────────────────────────────────────── */
+  .cyber-input {
+    @apply w-full bg-dark-600 border border-dark-400 rounded-lg px-4 py-3 text-white placeholder-gray-500 outline-none transition-all duration-200 font-mono text-sm;
+  }
+  .cyber-input:focus {
+    @apply border-neon-green/60;
+    box-shadow: 0 0 0 2px rgba(0, 255, 135, 0.1);
+  }
+
+  /* ── Neon Text ────────────────────────────────────────────── */
+  .text-neon {
+    color: #00ff87;
+    text-shadow: 0 0 10px rgba(0, 255, 135, 0.5);
+  }
+  .text-neon-purple {
+    color: #bf5af2;
+    text-shadow: 0 0 10px rgba(191, 90, 242, 0.5);
+  }
+
+  /* ── Gradient Text ────────────────────────────────────────── */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #00ff87 0%, #0a84ff 50%, #bf5af2 100%);
+  }
+
+  /* ── Badge ────────────────────────────────────────────────── */
+  .neon-badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold tracking-wide;
+  }
+
+  /* ── Section ──────────────────────────────────────────────── */
+  .section-heading {
+    @apply text-3xl md:text-4xl font-extrabold text-white mb-4;
+  }
+  .section-sub {
+    @apply text-gray-400 text-lg max-w-2xl;
+  }
+
+  /* ── Cyber Grid Background ────────────────────────────────── */
+  .cyber-bg {
+    background-image:
+      linear-gradient(rgba(0,255,135,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,135,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* ── Glow Effects ─────────────────────────────────────────── */
+  .glow-green {
+    box-shadow: 0 0 20px rgba(0, 255, 135, 0.3), 0 0 60px rgba(0, 255, 135, 0.1);
+  }
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(191, 90, 242, 0.3), 0 0 60px rgba(191, 90, 242, 0.1);
+  }
+
+  /* ── Status Pills ─────────────────────────────────────────── */
+  .status-pending   { @apply neon-badge bg-yellow-500/20 text-yellow-400 border border-yellow-500/30; }
+  .status-submitted { @apply neon-badge bg-blue-500/20 text-blue-400 border border-blue-500/30; }
+  .status-accepted  { @apply neon-badge bg-neon-green/20 text-neon-green border border-neon-green/30; }
+  .status-revision  { @apply neon-badge bg-orange-500/20 text-orange-400 border border-orange-500/30; }
+  .status-overdue   { @apply neon-badge bg-red-500/20 text-red-400 border border-red-500/30; }
+}
