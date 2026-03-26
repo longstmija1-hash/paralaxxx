@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 // ── Navbar ─────────────────────────────────────────────────────────────────────
@@ -20,7 +19,6 @@ const Navbar = () => {
           <a href="#faq" className="hover:text-neon-green transition-colors">FAQ</a>
         </div>
         <div className="flex items-center gap-3">
-          <Link to="/login" className="btn-neon-outline text-sm px-4 py-2 hidden sm:flex">Войти</Link>
           <a href="#hero" className="btn-neon text-sm px-4 py-2">Записаться</a>
         </div>
       </div>
@@ -66,22 +64,20 @@ const HeroSection = () => (
       >
         <span className="text-white">Прокачаем</span>{' '}
         <span className="gradient-text">оценки в школе</span>{' '}
-        <span className="text-white">через</span>{' '}
-        <span className="text-neon-purple" style={{ textShadow: '0 0 20px rgba(191,90,242,0.5)' }}>
-          создание игр
-        </span>{' '}
         <span className="text-white">и</span>{' '}
-        <span className="text-neon" style={{ textShadow: '0 0 20px rgba(0,255,135,0.5)' }}>
-          программирование
-        </span>
+        <span className="text-white">подготовим к</span>{' '}
+        <span className="text-neon-purple" style={{ textShadow: '0 0 20px rgba(191,90,242,0.5)' }}>
+          экзаменам
+        </span>{' '}
+
       </motion.h1>
 
       <motion.p
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
         className="text-xl text-gray-400 max-w-2xl mx-auto mb-10"
       >
-        Изучаем Python, Web и Game Dev, решая реальные школьные задачи.
-        Жёсткая дисциплина, коины, мерч и живые кураторы. Без скуки.
+        Твои школьные уроки с суперсилой! Применяй знания по физике, химии, математике и другим предметам.
+        Прокачивай знания под надзором профи. Школа, в которую хочется возвращаться.
       </motion.p>
 
       <motion.div
@@ -102,9 +98,8 @@ const HeroSection = () => (
         className="flex flex-wrap justify-center gap-8 mt-16"
       >
         {[
-          { value: '500+', label: 'учеников' },
-          { value: '95%', label: 'досдают ДЗ' },
-          { value: '3', label: 'жизни in game' },
+          { value: '100+', label: 'учеников' },
+          { value: '95%', label: 'достигают желаемых результатов' },
           { value: '0', label: 'скучных уроков' },
         ].map((s) => (
           <div key={s.label} className="text-center">
@@ -112,6 +107,11 @@ const HeroSection = () => (
             <div className="text-sm text-gray-500">{s.label}</div>
           </div>
         ))}
+        <div className="text-center">
+          <div className="text-3xl font-black text-neon text-neutral-500">3</div>
+          <div className="text-sm text-neutral-500 line-through">жизни in game</div>
+          <span className="text-sm text-neutral-600 block mt-1">(в разработке)</span>
+        </div>
       </motion.div>
     </div>
 
@@ -146,8 +146,8 @@ const ProblemsSection = () => (
             {[
               { emoji: '📱', text: 'Ребёнок постоянно в телефоне и TikTok' },
               { emoji: '😴', text: 'На учёбу нет никакой мотивации' },
-              { emoji: '📉', text: 'Плохие оценки по математике и информатике' },
-              { emoji: '💸', text: 'Платишь репетиторам — результата ноль' },
+              { emoji: '📉', text: 'Плохие оценки по предметам' },
+              { emoji: '💸', text: 'Платите репетиторам — результата ноль' },
             ].map((item) => (
               <li key={item.text} className="flex items-start gap-3 text-gray-300">
                 <span className="text-xl mt-0.5">{item.emoji}</span>
@@ -161,14 +161,14 @@ const ProblemsSection = () => (
           className="cyber-card border-neon-green/20">
           <div className="flex items-center gap-3 mb-6">
             <span className="text-3xl">🎮</span>
-            <h3 className="text-xl font-bold text-neon">Для тебя</h3>
+            <h3 className="text-xl font-bold text-neon">Для ученика</h3>
           </div>
           <ul className="space-y-4">
             {[
-              { emoji: '🎮', text: 'Хочу делать свои игры, а не слушать скучные уроки' },
-              { emoji: '💰', text: 'Хочу зарабатывать деньги на коде до 18' },
-              { emoji: '😤', text: 'Обычные репетиторы — душнилы без шуток' },
-              { emoji: '🏆', text: 'Хочу поступить в нормальный IT-вуз' },
+              { emoji: '🎮', text: 'Учись играя, а не засыпая' },
+              { emoji: '💰', text: 'Будь самым умным в классе (без зубрежки)' },
+              { emoji: '😤', text: 'Преподы, которые тебя понимают' },
+              { emoji: '🏆', text: 'Уверенный шаг в крутое будущее' },
             ].map((item) => (
               <li key={item.text} className="flex items-start gap-3 text-gray-300">
                 <span className="text-xl mt-0.5">{item.emoji}</span>
@@ -184,10 +184,10 @@ const ProblemsSection = () => (
 
 // ── How It Works ───────────────────────────────────────────────────────────────
 const steps = [
-  { icon: '📺', title: '2 вебинара в неделю', desc: 'Живые уроки с крутыми преподами-разработчиками' },
-  { icon: '💻', title: 'Домашнее задание', desc: 'Практика: код на GitHub, симуляции, проекты' },
+  { icon: '📺', title: 'Личные консультации и вебинары', desc: 'Живые занятия с крутыми преподами' },
+  { icon: '💻', title: 'Домашнее задание', desc: 'Практика по пройденному материалу' },
   { icon: '✅', title: 'Проверка куратором', desc: 'Живой фидбек, аудиокомменты, "принять / доработать"' },
-  { icon: '❤️', title: 'Жизни и Коины', desc: 'Вовремя — +монеты. Просрочил — —жизнь. Игра по-настоящему' },
+  { icon: '❤️', title: 'Жизни и Коины', desc: 'Вовремя — плюс монеты. Просрочил — минус жизнь. Игра по-настоящему', locked: true },
   { icon: '🚀', title: 'Результат', desc: 'Портфолио, знания и крутые оценки в школе' },
 ]
 const HowItWorksSection = () => (
@@ -196,7 +196,7 @@ const HowItWorksSection = () => (
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
         <h2 className="section-heading">Как проходит обучение</h2>
       </motion.div>
-      <div className="flex flex-col md:flex-row gap-0">
+      <div className="flex flex-col md:flex-row items-stretch gap-4">
         {steps.map((step, i) => (
           <motion.div key={step.title}
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
@@ -204,15 +204,53 @@ const HowItWorksSection = () => (
             className="flex-1 relative"
           >
             {i < steps.length - 1 && (
-              <div className="hidden md:block absolute top-8 right-0 w-full h-0.5 bg-gradient-to-r from-neon-green/40 to-transparent z-0" />
-            )}
-            <div className="cyber-card mx-2 relative z-10 text-center">
-              <div className="text-4xl mb-3">{step.icon}</div>
-              <div className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-neon-green/20 text-neon-green text-xs font-bold mb-3">
-                {i + 1}
+              <div
+                className="hidden md:block absolute z-0 overflow-hidden"
+                style={{ top: '68px', left: '50%', width: '100%', height: '2px' }}
+              >
+                {/* Glow base line */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: 'rgba(0,255,135,0.2)',
+                    boxShadow: '0 0 8px rgba(0,255,135,0.5), 0 0 2px rgba(0,255,135,0.8)',
+                  }}
+                />
+                {/* Animated energy spark */}
+                <motion.div
+                  className="absolute top-0 h-full w-20"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent 0%, #00ff87 45%, #0a84ff 55%, transparent 100%)',
+                    filter: 'blur(1px)',
+                  }}
+                  animate={{ x: ['-80px', '200%'] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'linear', repeatDelay: 0.4, delay: i * 0.3 }}
+                />
               </div>
-              <h3 className="font-bold text-white mb-2 text-sm">{step.title}</h3>
-              <p className="text-gray-500 text-xs">{step.desc}</p>
+            )}
+            <div className="cyber-card mx-2 relative z-10 text-center overflow-hidden h-full flex flex-col justify-start">
+              {/* Locked overlay */}
+              {step.locked && (
+                <div className="absolute inset-0 flex items-center justify-center z-20">
+                  <div
+                    className="animate-pulse px-3 py-1.5 rounded-md bg-dark-800/80 border border-neon-purple/50"
+                    style={{ boxShadow: '0 0 10px rgba(191,90,242,0.3)' }}
+                  >
+                    <span className="text-[10px] tracking-widest font-mono text-neon-purple uppercase">
+                      В разработке
+                    </span>
+                  </div>
+                </div>
+              )}
+              {/* Card content */}
+              <div className={step.locked ? 'opacity-40 grayscale' : ''}>
+                <div className="text-4xl mb-3">{step.icon}</div>
+                <div className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-neon-green/20 text-neon-green text-xs font-bold mb-3">
+                  {i + 1}
+                </div>
+                <h3 className="font-bold text-white mb-2 text-sm">{step.title}</h3>
+                <p className="text-gray-500 text-xs">{step.desc}</p>
+              </div>
             </div>
           </motion.div>
         ))}
@@ -224,20 +262,29 @@ const HowItWorksSection = () => (
 // ── Courses Section ────────────────────────────────────────────────────────────
 const courses = [
   {
-    level: 'Junior', age: '8–12 лет', color: 'neon-green', emoji: '🟢',
-    subjects: ['Scratch + Логика', 'Roblox Studio', 'Базовая математика'],
-    desc: 'Создаём первые игры и учимся думать алгоритмами. Школьная программа 3–6 класс.',
+    level: 'Школа',
+    age: '1–11 класс',
+    color: 'neon-green',
+    emoji: '🏫',
+    subjects: ['Естественные науки', 'Гуманитарные науки', 'Точные науки'],
+    desc: 'Устраняем пробелы, подтягиваем оценки и разбираемся со сложной домашкой. Вся школьная программа в одном месте.',
   },
   {
-    level: 'Middle', age: '13–15 лет', color: 'neon-purple', emoji: '🟣',
-    subjects: ['Python + Алгебра', 'Web-дизайн + HTML/CSS', 'Информатика'],
-    desc: 'Python, веб и алгебра вместе. Пишем калькулятор квадратных уравнений, строим сайты.',
-    featured: true,
+    level: 'Экзамены',
+    age: '9 и 11 класс',
+    color: 'neon-purple',
+    emoji: '🔥',
+    subjects: ['Подготовка к ОГЭ', 'Подготовка к ЕГЭ', 'Интенсив-практикум'],
+    desc: 'Целенаправленная подготовка на 90+ баллов. Разбор ловушек экзамена и психологическая подготовка.',
+    featured: true, // Выделяем этот блок как самый приоритетный
   },
   {
-    level: 'Senior', age: '16–17 лет', color: 'neon-blue', emoji: '🔵',
-    subjects: ['C++ / Python (ОГЭ/ЕГЭ)', 'Подготовка к экзаменам', 'Алгоритмы'],
-    desc: 'Готовимся к ЕГЭ по информатике и математике. Олимпиадный уровень.',
+    level: 'IT-Навыки',
+    age: 'любой возраст',
+    color: 'neon-blue',
+    emoji: '💻',
+    subjects: ['Scratch', 'Python / C++', 'Web-разработка'],
+    desc: 'От создания первых игр до серьезных IT-проектов. Развиваем алгоритмическое мышление и создаем крутое портфолио.',
   },
 ]
 const CoursesSection = () => (
@@ -293,14 +340,14 @@ const LivesSystemSection = () => (
           <h2 className="section-heading">Система 3-х жизней</h2>
           <p className="text-gray-400 mb-6">
             Каждый месяц ты получаешь <span className="text-white font-semibold">3 жизни</span>.
-            Не сдал домашку до дедлайна — сгорает 1 жизнь и ты получаешь пуш в Telegram.
+            Не сдал домашку до дедлайна — сгорает 1 жизнь и ты получаешь пуш в мессенджер.
           </p>
           <div className="space-y-4">
             {[
-              { icon: '❤️❤️❤️', label: '3 жизни', desc: 'Всё отлично, продолжаешь в тарифе со Студент' },
-              { icon: '❤️❤️🖤', label: '2 жизни', desc: 'Пропустил один дедлайн. Собирайся!' },
-              { icon: '❤️🖤🖤', label: '1 жизнь', desc: 'Критическая ситуация. Куратор выходит на связь' },
-              { icon: '💀💀💀', label: '0 жизней', desc: 'Ты переведён на тариф «Слушатель». Возврата денег нет.' },
+              { icon: '❤️❤️❤️', label: '3 жизни', desc: 'Всё отлично. Ты получаешь монеты за домашку X2' },
+              { icon: '❤️❤️🖤', label: '2 жизни', desc: 'Пропустил один дедлайн. Собирайся! Бонусов нет :(' },
+              { icon: '❤️🖤🖤', label: '1 жизнь', desc: 'Критическая ситуация.' },
+              { icon: '💀💀💀', label: '0 жизней', desc: 'Упсс... Ты потерял монеты' },
             ].map((row) => (
               <div key={row.label} className="flex items-start gap-4 p-3 rounded-lg bg-dark-700 border border-dark-500">
                 <span className="text-2xl">{row.icon}</span>
@@ -319,9 +366,9 @@ const LivesSystemSection = () => (
             <div className="text-8xl mb-4">💔</div>
             <div className="font-mono text-red-400 text-sm mb-2">СИСТЕМА ПРЕДУПРЕЖДАЕТ</div>
             <div className="bg-dark-800 rounded-xl p-4 text-left font-mono text-xs text-gray-400 border border-dark-500">
-              <div className="text-red-400">❌ Deadline missed</div>
-              <div className="text-yellow-400 mt-1">⚡ Lives: 3 → 2</div>
-              <div className="text-gray-500 mt-1">📲 Telegram: отправлен пуш</div>
+              <div className="text-red-400">❌ Домашнее задание не сдано</div>
+              <div className="text-yellow-400 mt-1">⚡ Жизни: 3 → 2</div>
+              <div className="text-gray-500 mt-1">📲 Мессенджер: отправлен пуш</div>
               <div className="text-neon-green mt-1">💡 "Осталось 2 жизни. Соберись!"</div>
             </div>
           </div>
@@ -337,16 +384,16 @@ const LivesSystemSection = () => (
 
 // ── Teachers Section ───────────────────────────────────────────────────────────
 const teachers = [
-  { name: 'Алексей К.', role: 'Python & ML Lead', achievement: 'Разработчик в Яндексе, ЕГЭ 100 баллов', emoji: '👨‍💻' },
-  { name: 'Маша Д.', role: 'Web & Design', achievement: 'МФТИ, разработала 3 продукта в продакшне', emoji: '👩‍🎨' },
-  { name: 'Дима Р.', role: 'Game Dev (Unity)', achievement: 'Инди-разработчик, 50k загрузок в Steam', emoji: '🎮' },
+  { name: 'Николай К.', role: 'Школьные науки', achievement: 'Призер международных и победитель всероссийских олимпиад', emoji: '🎒' },
+  { name: 'Земан Д.', role: 'Обществознание, История, Инастранные языки', achievement: 'Выпускник педогогического вуза, с большим опытом работы с детьми', emoji: '‍🎓' },
+  { name: 'Данил Ф.', role: 'Системный аналитик, Веб-дизайнер', achievement: 'Разработка веб-приложений и системного анализа для крупных компаний. Опыт в it >5 лет', emoji: '👨‍💻' },
 ]
 const TeachersSection = () => (
   <section id="teachers" className="py-24 px-4">
     <div className="max-w-5xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
         <h2 className="section-heading">Преподаватели</h2>
-        <p className="section-sub mx-auto">Молодые разработчики и студенты топовых вузов. Без скуки и «откройте учебник».</p>
+        <p className="section-sub mx-auto">Тебя будут учить молодые профи, которые горят своим делом. Мы превращаем скучные параграфы в понятные лайфхаки. С нами ты не заметишь, как пролетит занятие. ВПЕРЕД ЗА ЗНАНИЯМИ!</p>
       </motion.div>
       <div className="grid md:grid-cols-3 gap-6">
         {teachers.map((t, i) => (
@@ -366,49 +413,76 @@ const TeachersSection = () => (
 // ── Pricing Section ────────────────────────────────────────────────────────────
 const PricingSection = () => (
   <section id="pricing" className="py-24 px-4 bg-dark-800/50">
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-6xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
         <h2 className="section-heading">Выбери тариф</h2>
         <p className="section-sub mx-auto">Рекуррентная подписка. Отменить можно в любой момент.</p>
       </motion.div>
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-3 gap-8">
         {/* Listener */}
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-          className="cyber-card">
+          className="cyber-card flex flex-col">
           <div className="text-gray-500 text-xs font-mono uppercase tracking-widest mb-2">Слушатель</div>
-          <div className="text-4xl font-black text-white mb-1">1 900 <span className="text-lg text-gray-500">₽/мес</span></div>
-          <p className="text-gray-500 text-sm mb-6">Посмотреть, понять, попробовать</p>
+          <div className="text-4xl font-black text-white mb-1">от 1 000 <span className="text-lg text-gray-500">₽/занятие</span></div>
+          <p className="text-gray-500 text-sm mb-6">Попробовать и понять, что это круто</p>
           <ul className="space-y-3 mb-8">
-            {['✅ Доступ к вебинарам и записям', '✅ Автопроверка тестов', '❌ Личный куратор', '❌ Ручная проверка кода', '❌ Чат группы', '❌ Система жизней и коинов'].map(f => (
-              <li key={f} className={`text-sm ${f.startsWith('❌') ? 'text-gray-600' : 'text-gray-300'}`}>{f}</li>
-            ))}
+            {['✅ 1 индивидуальное занятие (60 мин).',
+              '✅ Проверка и разбор домашнего задания.',
+              '✅ Общий чат техподдержки по вопросам платформы.',
+              '✅ Диагностика знаний на первом уроке.',
+              '✅ Оплата без обязательств за каждое занятие отдельно.',
+              '..............'].map(f => (
+                <li key={f} className={`text-sm ${f.startsWith('❌') ? 'text-gray-600' : 'text-gray-300'}`}>{f}</li>
+              ))}
           </ul>
-          <a href="mailto:hello@codeschool.ru" className="btn-neon-outline w-full text-center block">Выбрать</a>
+          <a href="mailto:hello@codeschool.ru" className="btn-neon-outline w-full text-center block mt-auto">Выбрать</a>
         </motion.div>
         {/* Student */}
         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-          className="cyber-card border-neon-green/40 relative overflow-hidden"
+          className="cyber-card border-neon-green/40 relative overflow-hidden flex flex-col"
           style={{ boxShadow: '0 0 30px rgba(0,255,135,0.1)' }}>
           <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-neon-green to-transparent" />
           <div className="absolute top-3 right-3 px-2 py-0.5 bg-neon-green/20 border border-neon-green/40 rounded text-xs text-neon-green font-semibold">
             ⭐ Рекомендуем
           </div>
           <div className="text-neon-green text-xs font-mono uppercase tracking-widest mb-2">Студент</div>
-          <div className="text-4xl font-black text-white mb-1">3 900 <span className="text-lg text-gray-500">₽/мес</span></div>
+          <div className="text-4xl font-black text-white mb-1">9 000 <span className="text-lg text-gray-500">₽/мес</span></div>
           <p className="text-gray-400 text-sm mb-6">Полное погружение с эффектом</p>
           <ul className="space-y-3 mb-8">
             {[
-              '✅ Вебинары + записи навсегда',
-              '✅ Ручная проверка ДЗ кодом',
-              '✅ Личный куратор (до 30 чел/группа)',
-              '✅ Чат группы и куратора',
-              '✅ Система 3-х жизней',
-              '✅ Коины и магазин мерча',
+              '✅ 8 занятий + 8 вебинаров',
+              '✅ Полный доступ ко всем видинарам',
+              '✅ Глубокий разбор каждого ДЗ с советами',
+              '✅ Преподаватель на связи постоянно.',
+              '✅ Еженедельный отчет о прогрессе ученика',
+              '✅ Выгода 1400₽',
             ].map(f => (
               <li key={f} className="text-sm text-gray-300">{f}</li>
             ))}
           </ul>
-          <a href="mailto:hello@codeschool.ru" className="btn-neon w-full text-center block">Записаться сейчас</a>
+          <a href="mailto:hello@codeschool.ru" className="btn-neon w-full text-center block mt-auto">Записаться сейчас</a>
+        </motion.div>
+        {/* Webinars */}
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="cyber-card border-neon-purple/40 relative overflow-hidden flex flex-col"
+          style={{ boxShadow: '0 0 30px rgba(191,90,242,0.1)' }}>
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-neon-purple to-transparent" />
+          <div className="text-neon-purple text-xs font-mono uppercase tracking-widest mb-2">Вебинары</div>
+          <div className="text-4xl font-black text-white mb-1">от 2 400 <span className="text-lg text-gray-500">₽/мес</span></div>
+          <p className="text-gray-400 text-sm mb-6">Групповое обучение в потоке</p>
+          <ul className="space-y-3 mb-8">
+            {[
+              '✅ 8 живых групповых вебинаров по расписанию.',
+              '✅ Доступ к материалам',
+              '✅ Групповой разбор типичных ошибок',
+              '✅ Доступ в закрытый чат группы для общения и вопросов.',
+              '✅ Общая статистика успеваемости в твоем учебном потоке',
+              '✅ Минимальная цена за час качественного обучения.',
+            ].map(f => (
+              <li key={f} className={`text-sm ${f.startsWith('❌') ? 'text-gray-600' : 'text-gray-300'}`}>{f}</li>
+            ))}
+          </ul>
+          <a href="mailto:hello@codeschool.ru" className="btn-neon-outline w-full text-center block mt-auto" style={{ borderColor: 'rgba(191,90,242,0.4)', color: '#bf5af2' }}>Выбрать</a>
         </motion.div>
       </div>
     </div>
