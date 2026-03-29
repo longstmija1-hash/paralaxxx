@@ -1,0 +1,15 @@
+{
+  "name": "С100ТЫЙ УРОВЕНЬ ТВОИХ ЗНАНИЙ",
+  "short_name": "С100ТЫЙ УРОВЕНЬ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#bf5af2",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 256x256 512x512"
+    }
+  ]
+}

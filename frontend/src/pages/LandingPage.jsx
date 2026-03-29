@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, Suspense, lazy } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import OrderModal from './OrderModal'
+const OrderModal = lazy(() => import('./OrderModal'))
 import { FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
 
 // ── Navbar ─────────────────────────────────────────────────────────────────────
@@ -9,14 +9,24 @@ const Navbar = ({ openModal }) => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-dark-500">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-2xl font-mono font-black text-neon">&lt;CS/&gt;</span>
-          <span className="font-extrabold text-white text-lg hidden sm:block">CodeSchool</span>
-        </div>
+        <a href="#" className="flex items-center gap-3 group cursor-pointer">
+          <div className="relative flex items-center justify-center w-10 h-10 rounded bg-dark-800 border border-neon-purple/40 overflow-hidden shadow-[0_0_10px_rgba(191,90,242,0.2)] group-hover:shadow-[0_0_20px_rgba(191,90,242,0.6)] group-hover:border-neon-purple transition-all duration-300">
+            <div className="absolute inset-0 bg-neon-purple/10 group-hover:bg-neon-purple/20 transition-colors" />
+            <span className="relative z-10 text-lg font-mono font-black text-neon-purple drop-shadow-[0_0_5px_rgba(191,90,242,0.8)]">100</span>
+          </div>
+          <div className="flex flex-col justify-center">
+            <span className="font-black text-white text-lg leading-none tracking-wide uppercase transition-colors duration-300">
+              С<span className="text-neon-green ml-[1px] mr-[1px] drop-shadow-[0_0_8px_rgba(0,255,135,0.8)]">100</span>ТЫЙ
+            </span>
+            <span className="text-[9px] text-gray-400 font-mono tracking-[0.3em] uppercase mt-1">
+              Уровень
+            </span>
+          </div>
+        </a>
         <div className="hidden md:flex items-center gap-8 text-sm text-gray-400">
           <a href="#courses" className="hover:text-neon-green transition-colors">Курсы</a>
           <a href="#lives" className="hover:text-neon-green transition-colors">Система жизней</a>
-          <a href="#teachers" className="hover:text-neon-green transition-colors">Преподы</a>
+          <a href="#teachers" className="hover:text-neon-green transition-colors">Преподаватели</a>
           <a href="#pricing" className="hover:text-neon-green transition-colors">Тарифы</a>
           <a href="#faq" className="hover:text-neon-green transition-colors">FAQ</a>
         </div>
@@ -391,7 +401,7 @@ const LivesSystemSection = () => (
 // ── Teachers Section ───────────────────────────────────────────────────────────
 const teachers = [
   { name: 'Николай К.', role: 'Школьные науки', achievement: 'Призер международных и победитель всероссийских олимпиад', emoji: '🎒' },
-  { name: 'Земан Д.', role: 'Обществознание, История, Инастранные языки', achievement: 'Выпускник педогогического вуза, с большим опытом работы с детьми', emoji: '‍🎓' },
+  { name: 'Данил З.', role: 'Обществознание, История, Иностранные языки', achievement: 'Выпускник педогогического вуза, с большим опытом работы с детьми', emoji: '‍🎓' },
   { name: 'Данил Ф.', role: 'Системный аналитик, Веб-дизайнер', achievement: 'Разработка веб-приложений и системного анализа для крупных компаний. Опыт в it >5 лет', emoji: '👨‍💻' },
 ]
 const TeachersSection = () => (
@@ -422,7 +432,7 @@ const PricingSection = ({ openModal }) => (
     <div className="max-w-6xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
         <h2 className="section-heading">Выбери тариф</h2>
-        <p className="section-sub mx-auto">Рекуррентная подписка. Отменить можно в любой момент.</p>
+        <p className="section-sub mx-auto">Любые предметы, которые у нас есть - просто нужно начать</p>
       </motion.div>
       <div className="grid md:grid-cols-3 gap-8">
         {/* Listener */}
@@ -434,14 +444,13 @@ const PricingSection = ({ openModal }) => (
           <ul className="space-y-3 mb-8">
             {['✅ 1 живое инд. занятие (60 мин)',
               '✅ Разовый разбор ДЗ',
-              '✅ Конспект занятия',
               '✅ Определение уровня знаний',
               '✅ Оплата по факту — без привязки к расписанию.',
             ].map(f => (
               <li key={f} className={`text-sm ${f.startsWith('❌') ? 'text-gray-600' : 'text-gray-300'}`}>{f}</li>
             ))}
           </ul>
-          <button onClick={() => openModal({ selectedTariff: 'listener' })} className="btn-neon-outline w-full text-center block mt-auto">Выбрать</button>
+          <button onClick={() => openModal({ selectedTariff: 'listener' })} className="btn-neon-outline w-full text-center block mt-6 sm:mt-auto shrink-0">Выбрать</button>
         </motion.div>
         {/* Student */}
         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
@@ -457,15 +466,22 @@ const PricingSection = ({ openModal }) => (
           <ul className="space-y-3 mb-8">
             {[
               '✅ 8 инд. уроков + 8 вебинаров — комплексное обучение.',
-              '✅ Глубокий разбор каждого ДЗ',
-              '✅ Доступ ко всей базе знаний курса.',
+              '✅ Разбор каждого ДЗ',
+              '✅ Хорошая возможность попробовать несколько предметов',
+              '✅ Связь с преподавателем 24/7',
               '✅ Еженедельный отчет для родителей',
-              '✅ Выгода 1400₽',
-            ].map(f => (
-              <li key={f} className="text-sm text-gray-300">{f}</li>
+              <span key="economy">
+                ✅ Выгодный тариф с экономией{' '}
+                <span className="inline-flex items-center px-1.5 py-0.5 bg-neon-green/10 border border-neon-green/40 rounded text-neon-green font-black drop-shadow-[0_0_8px_rgba(0,255,135,0.8)] relative">
+                  <span className="absolute inset-0 bg-neon-green/20 animate-pulse rounded blur-sm"></span>
+                  <span className="relative z-10">1400₽</span>
+                </span>
+              </span>,
+            ].map((f, i) => (
+              <li key={i} className="text-sm text-gray-300">{f}</li>
             ))}
           </ul>
-          <button onClick={() => openModal({ selectedTariff: 'student' })} className="btn-neon w-full text-center block mt-auto">Записаться сейчас</button>
+          <button onClick={() => openModal({ selectedTariff: 'student' })} className="btn-neon w-full text-center block mt-6 sm:mt-auto shrink-0">Записаться сейчас</button>
         </motion.div>
         {/* Webinars */}
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -478,7 +494,6 @@ const PricingSection = ({ openModal }) => (
           <ul className="space-y-3 mb-8">
             {[
               '✅ 8 живых групповых вебинаров по расписанию.',
-              '✅ Доступ к материалам',
               '✅ Групповой разбор типичных ошибок',
               '✅ Доступ в закрытый чат группы для общения и вопросов.',
               '✅ Общая статистика успеваемости в твоем учебном потоке',
@@ -487,7 +502,7 @@ const PricingSection = ({ openModal }) => (
               <li key={f} className={`text-sm ${f.startsWith('❌') ? 'text-gray-600' : 'text-gray-300'}`}>{f}</li>
             ))}
           </ul>
-          <button onClick={() => openModal({ selectedTariff: 'webinar' })} className="btn-neon-outline w-full text-center block mt-auto" style={{ borderColor: 'rgba(191,90,242,0.4)', color: '#bf5af2' }}>Выбрать</button>
+          <button onClick={() => openModal({ selectedTariff: 'webinar' })} className="btn-neon-outline w-full text-center block mt-6 sm:mt-auto shrink-0" style={{ borderColor: 'rgba(191,90,242,0.4)', color: '#bf5af2' }}>Выбрать</button>
         </motion.div>
       </div>
     </div>
@@ -496,15 +511,16 @@ const PricingSection = ({ openModal }) => (
 
 // ── FAQ Section ────────────────────────────────────────────────────────────────
 const faqs = [
-  { q: 'Какой возраст подходит?', a: 'Наши программы рассчитаны на детей и подростков от 8 до 17 лет, разделенные по уровням сложности.' },
-  { q: 'Что если пропустить вебинар?', a: 'Все занятия записываются. Запись и конспект появятся в личном кабинете сразу после эфира.' },
-  { q: 'Нужен ли свой компьютер?', a: 'Да, для практики потребуется ноутбук или ПК. Для младших групп достаточно среднего устройства.' },
-  { q: 'Можно ли вернуть деньги?', a: 'Да, мы возвращаем полную стоимость в течение первых двух недель, если формат вам не подойдет.' },
-  { q: 'Как происходит проверка ДЗ?', a: 'Куратор проверяет работу вручную, оставляет аудиокомментарии и советы по коду или решению задач.' },
+  { q: 'Какой возраст подходит?', a: 'Наши программы рассчитаны на детей и подростков, и взрослых от 8 до 25 лет, разделенные по уровням сложности.' },
+  { q: 'Что если пропустить вебинар?', a: 'Будет возможность перенести занятие, если оно индивидуальное. Если групповое, то будет запись вебинара. В тарифе "Студент" - работает более гибкая система переносов.' },
+  { q: 'Нужен ли свой компьютер?', a: 'Да, потребуется ноутбук или ПК. Для младших групп достаточно среднего устройства.' },
+  { q: 'Можно ли вернуть деньги?', a: 'Да, мы возвращаем деньги в течение первых двух недель (14 дней), если формат вам не подойдет. Минусуется только цена уже пройденных занятий с учетом дейсвтующей скидки' },
+  { q: 'Как происходит проверка ДЗ?', a: 'Проверяем работу вручную, после чего, на следующем занятии исправляем ошибки и делаем так, чтобы вы поняли тему лучше. ' },
 ]
 
 const AccordionItem = ({ faq, isOpen, onClick }) => (
   <motion.div
+    layout="position"
     className="bg-dark-900/40 border border-dark-700 hover:border-neon-purple/50 rounded-xl mb-4 overflow-hidden transition-colors duration-300"
     initial={false}
   >
@@ -562,17 +578,57 @@ const FAQSection = () => {
   )
 }
 
+// ── Privacy Modal ──────────────────────────────────────────────────────────────
+const PrivacyModal = ({ onClose }) => (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-dark-900/80 backdrop-blur-sm" onClick={onClose}>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      onClick={(e) => e.stopPropagation()}
+      className="relative w-full max-w-2xl bg-dark-900 border border-neon-purple rounded-2xl shadow-[0_0_30px_rgba(191,90,242,0.2)] flex flex-col"
+    >
+      <div className="p-6 border-b border-neon-purple/20">
+        <h2 className="text-2xl font-black text-white">Политика конфиденциальности</h2>
+      </div>
+      <div className="p-6 overflow-y-auto max-h-[60vh] text-gray-400 text-sm space-y-4 font-mono custom-scrollbar">
+        <p>Настоящая Политика конфиденциальности описывает, как мы собираем, используем и защищаем вашу информацию...</p>
+        <p>1. Сбор информации<br/>Мы собираем информацию при регистрации на сайте, оформлении заявки и использовании функционала платформы.</p>
+        <p>2. Использование информации<br/>Личный данные используются исключительно для связи по поводу занятий, улучшения платформы и персонализации процесса обучения.</p>
+        <p>3. Защита личных данных<br/>Ваши данные надежно защищены. Мы не передаем их третьим лицам без вашего согласия (за исключением случаев, предусмотренных законом).</p>
+        <p>4. Согласие<br/>Пользуясь нашим сайтом, вы автоматически соглашаетесь с нашей политикой конфиденциальности.</p>
+      </div>
+      <div className="p-6 border-t border-neon-purple/20 flex justify-end">
+        <button onClick={onClose} className="btn-neon px-6 py-2">Закрыть</button>
+      </div>
+    </motion.div>
+  </div>
+)
+
 // ── Footer ─────────────────────────────────────────────────────────────────────
-const Footer = () => (
-  <footer className="border-t border-dark-500 py-12 px-4 bg-dark-900/50">
+const Footer = () => {
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false)
+  return (
+    <>
+      <footer className="border-t border-dark-500 py-12 px-4 bg-dark-900/50">
     <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
       {/* Left Zone: Logo & Copyright */}
       <div className="flex flex-col items-center md:items-start text-center md:text-left">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-2xl font-mono font-black text-neon">&lt;CS/&gt;</span>
-          <span className="font-extrabold text-white text-xl">CodeSchool</span>
+        <div className="flex items-center gap-3 group mb-4">
+          <div className="relative flex items-center justify-center w-10 h-10 rounded bg-dark-800 border border-neon-purple/40 overflow-hidden shadow-[0_0_10px_rgba(191,90,242,0.2)] group-hover:shadow-[0_0_20px_rgba(191,90,242,0.6)] group-hover:border-neon-purple transition-all duration-300">
+            <div className="absolute inset-0 bg-neon-purple/10 group-hover:bg-neon-purple/20 transition-colors" />
+            <span className="relative z-10 text-lg font-mono font-black text-neon-purple drop-shadow-[0_0_5px_rgba(191,90,242,0.8)]">100</span>
+          </div>
+          <div className="flex flex-col justify-center items-start">
+            <span className="font-black text-white text-lg leading-none tracking-wide uppercase transition-colors duration-300">
+              С<span className="text-neon-green ml-[1px] mr-[1px] drop-shadow-[0_0_8px_rgba(0,255,135,0.8)]">100</span>ТЫЙ
+            </span>
+            <span className="text-[9px] text-gray-400 font-mono tracking-[0.3em] uppercase mt-1">
+              Уровень
+            </span>
+          </div>
         </div>
-        <p className="text-gray-600 text-sm">© 2026 CodeSchool. Все права защищены.</p>
+        <p className="text-gray-600 text-sm">© 2026 С100ТЫЙ УРОВЕНЬ. Все права защищены.</p>
       </div>
 
       {/* Right Zone: Contacts & Links */}
@@ -580,14 +636,14 @@ const Footer = () => (
         {/* Contacts (Phone + Socials) */}
         <div className="flex flex-col sm:flex-row items-center gap-6">
           <a
-            href="tel:+79990000000"
+            href="tel:+79058043110"
             className="font-mono text-neon-green text-xl hover:text-white transition-colors drop-shadow-[0_0_5px_rgba(0,255,135,0.4)]"
           >
-            +7 (999) 000-00-00
+            +7 (905) 804-31-10
           </a>
           <div className="flex items-center gap-5 text-2xl">
             <a
-              href="https://t.me/yourboturl"
+              href="https://t.me/BNp0D0KTpAnnA"
               target="_blank"
               rel="noopener noreferrer"
               className="text-neutral-400 transition-all duration-300 hover:text-neon-purple hover:drop-shadow-[0_0_8px_rgba(191,90,242,0.8)] hover:scale-110"
@@ -596,27 +652,31 @@ const Footer = () => (
               <FaTelegramPlane />
             </a>
             <a
-              href="https://wa.me/79990000000"
+              href="https://max.ru/u/f9LHodD0cOJH9YLhQHH7ahys0fzwdOZZfVcPexgH8nLQBtS8XZ0L9GN6yuI"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 transition-all duration-300 hover:text-neon-purple hover:drop-shadow-[0_0_8px_rgba(191,90,242,0.8)] hover:scale-110"
+              className="text-neutral-400 font-black text-xl tracking-widest transition-all duration-300 hover:text-neon-purple hover:drop-shadow-[0_0_8px_rgba(191,90,242,0.8)] hover:scale-110"
               aria-label="WhatsApp"
             >
-              <FaWhatsapp />
+              MAX
             </a>
           </div>
         </div>
 
         {/* Legal Links (Privacy, Offer) */}
         <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-          <a href="#" className="hover:text-neon-green transition-colors">Политика конфиденциальности</a>
-          <a href="#" className="hover:text-neon-green transition-colors">Оферта</a>
-          <a href="mailto:hello@codeschool.ru" className="hover:text-neon-green transition-colors">Контакты</a>
+          <a href="#" rel="nofollow" onClick={(e) => { e.preventDefault(); setIsPrivacyOpen(true); }} className="hover:text-neon-green transition-colors cursor-pointer">Политика конфиденциальности</a>
+          {/* <a href="#" className="hover:text-neon-green transition-colors">Оферта</a> */}
         </div>
       </div>
     </div>
   </footer>
-)
+      <AnimatePresence>
+        {isPrivacyOpen && <PrivacyModal onClose={() => setIsPrivacyOpen(false)} />}
+      </AnimatePresence>
+    </>
+  )
+}
 
 // ── Main Export ────────────────────────────────────────────────────────────────
 export default function LandingPage() {
@@ -641,7 +701,9 @@ export default function LandingPage() {
       <PricingSection openModal={openModal} />
       <FAQSection />
       <Footer />
-      <OrderModal isOpen={modalOpen} onClose={closeModal} initialData={modalData} />
+      <Suspense fallback={null}>
+        <OrderModal isOpen={modalOpen} onClose={closeModal} initialData={modalData} />
+      </Suspense>
     </div>
   )
 }

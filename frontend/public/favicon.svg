@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <filter id="glowDropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#bf5af2" flood-opacity="0.3"/>
+    </filter>
+    <filter id="textGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#bf5af2" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <rect x="15" y="15" width="90" height="90" rx="18" fill="#1a1a1a" stroke="#bf5af2" stroke-width="4" stroke-opacity="0.4" filter="url(#glowDropShadow)" />
+  
+  <text x="60" y="66" font-family="'JetBrains Mono', Consolas, Monaco, monospace" font-weight="900" font-size="40" fill="#bf5af2" text-anchor="middle" dominant-baseline="middle" filter="url(#textGlow)">100</text>
+</svg>

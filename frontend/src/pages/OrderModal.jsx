@@ -104,8 +104,8 @@ export default function OrderModal({ isOpen, onClose, initialData = {} }) {
     : null
 
   const sendToTelegram = async (formData) => {
-    const BOT_TOKEN = '8560674622:AAH9DZRG-DRFE8IAjShvLu84owwrBaXB5gE'
-    const CHAT_ID = '-4988413612'
+    const BOT_TOKEN = import.meta.env.VITE_BOT_TOKEN
+    const CHAT_ID = import.meta.env.VITE_CHAT_ID
 
     const tariffStr = formData.tariff ? `\n💳 Тариф: ${formData.tariff}` : ''
 
@@ -195,7 +195,6 @@ export default function OrderModal({ isOpen, onClose, initialData = {} }) {
                 ✕
               </button>
 
-                  /* ── Form ── */
               <motion.div
                 key="form"
                 initial={{ opacity: 0 }}
@@ -204,11 +203,6 @@ export default function OrderModal({ isOpen, onClose, initialData = {} }) {
               >
                 {/* Header */}
                 <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-mono text-xs tracking-[0.25em] text-neon-purple uppercase">
-                      &gt; Init_enrollment.exe
-                    </span>
-                  </div>
                   <h2 className="text-2xl font-black text-white">
                     Записаться на обучение
                   </h2>
