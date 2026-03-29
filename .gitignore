@@ -3,7 +3,7 @@ backend/node_modules
 frontend/node_modules
 
 # Секретные файлы (твой пароль от базы)
-backend/.env
+frontend/.env
 
 # Папки сборки
 frontend/dist
