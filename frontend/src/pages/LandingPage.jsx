@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import OrderModal from './OrderModal'
+import { FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
 
 // ── Navbar ─────────────────────────────────────────────────────────────────────
-const Navbar = () => {
+const Navbar = ({ openModal }) => {
   const [open, setOpen] = useState(false)
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-dark-500">
@@ -19,7 +21,7 @@ const Navbar = () => {
           <a href="#faq" className="hover:text-neon-green transition-colors">FAQ</a>
         </div>
         <div className="flex items-center gap-3">
-          <a href="#hero" className="btn-neon text-sm px-4 py-2">Записаться</a>
+          <button onClick={() => openModal({})} className="btn-neon text-sm px-4 py-2">Записаться</button>
         </div>
       </div>
     </nav>
@@ -27,8 +29,8 @@ const Navbar = () => {
 }
 
 // ── Hero Section ───────────────────────────────────────────────────────────────
-const HeroSection = () => (
-  <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+const HeroSection = ({ openModal }) => (
+  <section id="hero" className="relative min-h-[100svh] w-full flex flex-col overflow-hidden pt-20">
     {/* Animated grid bg */}
     <div className="absolute inset-0 cyber-bg opacity-60" />
     {/* Radial glow */}
@@ -50,74 +52,75 @@ const HeroSection = () => (
       />
     ))}
 
-    <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-neon-green/10 border border-neon-green/30 rounded-full text-sm font-mono text-neon-green mb-6">
-          <span className="w-2 h-2 bg-neon-green rounded-full animate-ping" />
-          Набор открыт — 15 мест осталось
-        </div>
-      </motion.div>
-
-      <motion.h1
-        initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-        className="text-5xl sm:text-6xl md:text-7xl font-black leading-tight mb-6"
-      >
-        <span className="text-white">Прокачаем</span>{' '}
-        <span className="gradient-text">оценки в школе</span>{' '}
-        <span className="text-white">и</span>{' '}
-        <span className="text-white">подготовим к</span>{' '}
-        <span className="text-neon-purple" style={{ textShadow: '0 0 20px rgba(191,90,242,0.5)' }}>
-          экзаменам
-        </span>{' '}
-
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-xl text-gray-400 max-w-2xl mx-auto mb-10"
-      >
-        Твои школьные уроки с суперсилой! Применяй знания по физике, химии, математике и другим предметам.
-        Прокачивай знания под надзором профи. Школа, в которую хочется возвращаться.
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
-        className="flex flex-col sm:flex-row gap-4 justify-center"
-      >
-        <a href="#pricing" className="btn-neon text-lg px-8 py-4 gap-2">
-          🚀 Записаться на бесплатный урок
-        </a>
-        <a href="#courses" className="btn-neon-outline text-lg px-8 py-4">
-          Посмотреть курсы
-        </a>
-      </motion.div>
-
-      {/* Stats */}
-      <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}
-        className="flex flex-wrap justify-center gap-8 mt-16"
-      >
-        {[
-          { value: '100+', label: 'учеников' },
-          { value: '95%', label: 'достигают желаемых результатов' },
-          { value: '0', label: 'скучных уроков' },
-        ].map((s) => (
-          <div key={s.label} className="text-center">
-            <div className="text-3xl font-black text-neon">{s.value}</div>
-            <div className="text-sm text-gray-500">{s.label}</div>
+    <div className="flex-grow flex items-center justify-center relative z-10 w-full py-10">
+      <div className="max-w-5xl mx-auto px-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-neon-green/10 border border-neon-green/30 rounded-full text-sm font-mono text-neon-green mb-6">
+            <span className="w-2 h-2 bg-neon-green rounded-full animate-ping" />
+            Набор открыт — 15 мест осталось
           </div>
-        ))}
-        <div className="text-center">
-          <div className="text-3xl font-black text-neon text-neutral-500">3</div>
-          <div className="text-sm text-neutral-500 line-through">жизни in game</div>
-          <span className="text-sm text-neutral-600 block mt-1">(в разработке)</span>
-        </div>
-      </motion.div>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-5xl sm:text-6xl md:text-7xl font-black leading-tight mb-6"
+        >
+          <span className="text-white">Прокачаем</span>{' '}
+          <span className="gradient-text">оценки в школе</span>{' '}
+          <span className="text-white">и</span>{' '}
+          <span className="text-white">подготовим к</span>{' '}
+          <span className="text-neon-purple" style={{ textShadow: '0 0 20px rgba(191,90,242,0.5)' }}>
+            экзаменам
+          </span>{' '}
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-xl text-gray-400 max-w-2xl mx-auto mb-10"
+        >
+          Твои школьные уроки с суперсилой! Применяй знания по физике, химии, математике и другим предметам.
+          Прокачивай знания под надзором профи. Школа, в которую хочется возвращаться.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <button onClick={() => openModal({})} className="btn-neon text-lg px-8 py-4 gap-2">
+            🚀 Записаться на бесплатный урок
+          </button>
+          <a href="#courses" className="btn-neon-outline text-lg px-8 py-4">
+            Посмотреть курсы
+          </a>
+        </motion.div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}
+          className="flex flex-wrap justify-center gap-8 mt-16"
+        >
+          {[
+            { value: '100+', label: 'учеников' },
+            { value: '95%', label: 'достигают желаемых результатов' },
+            { value: '0', label: 'скучных уроков' },
+          ].map((s) => (
+            <div key={s.label} className="text-center">
+              <div className="text-3xl font-black text-neon">{s.value}</div>
+              <div className="text-sm text-gray-500">{s.label}</div>
+            </div>
+          ))}
+          <div className="text-center">
+            <div className="text-3xl font-black text-neon text-neutral-500">3</div>
+            <div className="text-sm text-neutral-500 line-through">жизни in game</div>
+            <span className="text-sm text-neutral-600 block mt-1">(в разработке)</span>
+          </div>
+        </motion.div>
+      </div>
     </div>
 
     {/* Scroll indicator */}
     <motion.div
-      className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-gray-600 text-xs"
+      className="relative z-10 flex flex-col items-center gap-1 text-gray-600 text-xs pb-8 mt-auto shrink-0"
       animate={{ y: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}
     >
       <span>scroll</span>
@@ -233,7 +236,7 @@ const HowItWorksSection = () => (
               {step.locked && (
                 <div className="absolute inset-0 flex items-center justify-center z-20">
                   <div
-                    className="animate-pulse px-3 py-1.5 rounded-md bg-dark-800/80 border border-neon-purple/50"
+                    className="px-3 py-1.5 rounded-md bg-dark-800/80 border border-neon-purple/50"
                     style={{ boxShadow: '0 0 10px rgba(191,90,242,0.3)' }}
                   >
                     <span className="text-[10px] tracking-widest font-mono text-neon-purple uppercase">
@@ -287,7 +290,7 @@ const courses = [
     desc: 'От создания первых игр до серьезных IT-проектов. Развиваем алгоритмическое мышление и создаем крутое портфолио.',
   },
 ]
-const CoursesSection = () => (
+const CoursesSection = ({ openModal }) => (
   <section id="courses" className="py-24 px-4">
     <div className="max-w-6xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
@@ -317,9 +320,12 @@ const CoursesSection = () => (
                 </li>
               ))}
             </ul>
-            <a href="#pricing" className={`mt-6 btn-neon-outline w-full text-center block text-sm py-2 ${c.featured ? 'border-neon-purple/40 text-neon-purple hover:bg-neon-purple hover:text-white' : ''}`}>
+            <button
+              onClick={() => openModal({ selectedProgram: c.level })}
+              className={`mt-6 btn-neon-outline w-full text-center block text-sm py-2 ${c.featured ? 'border-neon-purple/40 text-neon-purple hover:bg-neon-purple hover:text-white' : ''}`}
+            >
               Записаться →
-            </a>
+            </button>
           </motion.div>
         ))}
       </div>
@@ -411,7 +417,7 @@ const TeachersSection = () => (
 )
 
 // ── Pricing Section ────────────────────────────────────────────────────────────
-const PricingSection = () => (
+const PricingSection = ({ openModal }) => (
   <section id="pricing" className="py-24 px-4 bg-dark-800/50">
     <div className="max-w-6xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
@@ -426,16 +432,16 @@ const PricingSection = () => (
           <div className="text-4xl font-black text-white mb-1">от 1 000 <span className="text-lg text-gray-500">₽/занятие</span></div>
           <p className="text-gray-500 text-sm mb-6">Попробовать и понять, что это круто</p>
           <ul className="space-y-3 mb-8">
-            {['✅ 1 индивидуальное занятие (60 мин).',
-              '✅ Проверка и разбор домашнего задания.',
-              '✅ Общий чат техподдержки по вопросам платформы.',
-              '✅ Диагностика знаний на первом уроке.',
-              '✅ Оплата без обязательств за каждое занятие отдельно.',
-              '..............'].map(f => (
-                <li key={f} className={`text-sm ${f.startsWith('❌') ? 'text-gray-600' : 'text-gray-300'}`}>{f}</li>
-              ))}
+            {['✅ 1 живое инд. занятие (60 мин)',
+              '✅ Разовый разбор ДЗ',
+              '✅ Конспект занятия',
+              '✅ Определение уровня знаний',
+              '✅ Оплата по факту — без привязки к расписанию.',
+            ].map(f => (
+              <li key={f} className={`text-sm ${f.startsWith('❌') ? 'text-gray-600' : 'text-gray-300'}`}>{f}</li>
+            ))}
           </ul>
-          <a href="mailto:hello@codeschool.ru" className="btn-neon-outline w-full text-center block mt-auto">Выбрать</a>
+          <button onClick={() => openModal({ selectedTariff: 'listener' })} className="btn-neon-outline w-full text-center block mt-auto">Выбрать</button>
         </motion.div>
         {/* Student */}
         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
@@ -450,17 +456,16 @@ const PricingSection = () => (
           <p className="text-gray-400 text-sm mb-6">Полное погружение с эффектом</p>
           <ul className="space-y-3 mb-8">
             {[
-              '✅ 8 занятий + 8 вебинаров',
-              '✅ Полный доступ ко всем видинарам',
-              '✅ Глубокий разбор каждого ДЗ с советами',
-              '✅ Преподаватель на связи постоянно.',
-              '✅ Еженедельный отчет о прогрессе ученика',
+              '✅ 8 инд. уроков + 8 вебинаров — комплексное обучение.',
+              '✅ Глубокий разбор каждого ДЗ',
+              '✅ Доступ ко всей базе знаний курса.',
+              '✅ Еженедельный отчет для родителей',
               '✅ Выгода 1400₽',
             ].map(f => (
               <li key={f} className="text-sm text-gray-300">{f}</li>
             ))}
           </ul>
-          <a href="mailto:hello@codeschool.ru" className="btn-neon w-full text-center block mt-auto">Записаться сейчас</a>
+          <button onClick={() => openModal({ selectedTariff: 'student' })} className="btn-neon w-full text-center block mt-auto">Записаться сейчас</button>
         </motion.div>
         {/* Webinars */}
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -477,12 +482,12 @@ const PricingSection = () => (
               '✅ Групповой разбор типичных ошибок',
               '✅ Доступ в закрытый чат группы для общения и вопросов.',
               '✅ Общая статистика успеваемости в твоем учебном потоке',
-              '✅ Минимальная цена за час качественного обучения.',
+              '✅ Минимальная цена — самый бюджетный час обучения.',
             ].map(f => (
               <li key={f} className={`text-sm ${f.startsWith('❌') ? 'text-gray-600' : 'text-gray-300'}`}>{f}</li>
             ))}
           </ul>
-          <a href="mailto:hello@codeschool.ru" className="btn-neon-outline w-full text-center block mt-auto" style={{ borderColor: 'rgba(191,90,242,0.4)', color: '#bf5af2' }}>Выбрать</a>
+          <button onClick={() => openModal({ selectedTariff: 'webinar' })} className="btn-neon-outline w-full text-center block mt-auto" style={{ borderColor: 'rgba(191,90,242,0.4)', color: '#bf5af2' }}>Выбрать</button>
         </motion.div>
       </div>
     </div>
@@ -491,38 +496,65 @@ const PricingSection = () => (
 
 // ── FAQ Section ────────────────────────────────────────────────────────────────
 const faqs = [
-  { q: 'Какой возраст подходит?', a: 'У нас три потока: 8–12, 13–15 и 16–17 лет. Каждый со своей программой и темпом.' },
-  { q: 'Что если пропустить вебинар?', a: 'Все вебинары записываются. Но дедлайн по ДЗ не передвигается — жизни горят у всех.' },
-  { q: 'Нужен ли свой компьютер?', a: 'Да, нужен ноутбук или ПК. Планшет/телефон не подойдут для написания кода.' },
-  { q: 'Можно ли вернуть деньги?', a: 'Если потерял все 3 жизни и переведён на «Слушатель» — возврата нет. За первые 3 дня возврат возможен.' },
-  { q: 'Как происходит проверка ДЗ?', a: 'Ты загружаешь ссылку на GitHub или код. Куратор проверяет в течение 24 часов и оставляет фидбек — текстом или аудио.' },
+  { q: 'Какой возраст подходит?', a: 'Наши программы рассчитаны на детей и подростков от 8 до 17 лет, разделенные по уровням сложности.' },
+  { q: 'Что если пропустить вебинар?', a: 'Все занятия записываются. Запись и конспект появятся в личном кабинете сразу после эфира.' },
+  { q: 'Нужен ли свой компьютер?', a: 'Да, для практики потребуется ноутбук или ПК. Для младших групп достаточно среднего устройства.' },
+  { q: 'Можно ли вернуть деньги?', a: 'Да, мы возвращаем полную стоимость в течение первых двух недель, если формат вам не подойдет.' },
+  { q: 'Как происходит проверка ДЗ?', a: 'Куратор проверяет работу вручную, оставляет аудиокомментарии и советы по коду или решению задач.' },
 ]
+
+const AccordionItem = ({ faq, isOpen, onClick }) => (
+  <motion.div
+    className="bg-dark-900/40 border border-dark-700 hover:border-neon-purple/50 rounded-xl mb-4 overflow-hidden transition-colors duration-300"
+    initial={false}
+  >
+    <button
+      onClick={onClick}
+      className="w-full text-left p-4 flex items-center justify-between gap-4 select-none"
+    >
+      <span className="font-semibold text-white text-base leading-relaxed">{faq.q}</span>
+      <motion.span
+        className="text-neon-green text-2xl font-light transform origin-center flex-shrink-0"
+        animate={{ rotate: isOpen ? 45 : 0 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      >
+        +
+      </motion.span>
+    </button>
+    <AnimatePresence initial={false}>
+      {isOpen && (
+        <motion.div
+          key="content"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        >
+          <div className="px-4 pb-4 pt-0 text-gray-400 text-sm leading-relaxed border-t border-dark-700/50 mt-1">
+            {faq.a}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </motion.div>
+)
+
 const FAQSection = () => {
-  const [open, setOpen] = useState(null)
+  const [openIndex, setOpenIndex] = useState(null)
   return (
     <section id="faq" className="py-24 px-4">
       <div className="max-w-3xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
           <h2 className="section-heading">Частые вопросы</h2>
         </motion.div>
-        <div className="space-y-3">
-          {faqs.map((f, i) => (
-            <motion.div key={f.q} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="w-full text-left p-4 bg-dark-700 border border-dark-500 hover:border-neon-green/30 rounded-xl transition-all duration-200 flex items-start justify-between gap-4"
-              >
-                <span className="font-semibold text-white">{f.q}</span>
-                <span className={`text-neon-green text-xl transition-transform duration-200 ${open === i ? 'rotate-45' : ''}`}>+</span>
-              </button>
-              {open === i && (
-                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
-                  className="px-4 py-3 text-gray-400 text-sm border-x border-b border-dark-500 rounded-b-xl bg-dark-800">
-                  {f.a}
-                </motion.div>
-              )}
-            </motion.div>
+        <div>
+          {faqs.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              faq={faq}
+              isOpen={openIndex === index}
+              onClick={() => setOpenIndex(openIndex === index ? null : index)}
+            />
           ))}
         </div>
       </div>
@@ -532,19 +564,55 @@ const FAQSection = () => {
 
 // ── Footer ─────────────────────────────────────────────────────────────────────
 const Footer = () => (
-  <footer className="border-t border-dark-500 py-12 px-4">
-    <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-      <div>
-        <div className="flex items-center gap-2 mb-2">
+  <footer className="border-t border-dark-500 py-12 px-4 bg-dark-900/50">
+    <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+      {/* Left Zone: Logo & Copyright */}
+      <div className="flex flex-col items-center md:items-start text-center md:text-left">
+        <div className="flex items-center gap-2 mb-3">
           <span className="text-2xl font-mono font-black text-neon">&lt;CS/&gt;</span>
-          <span className="font-extrabold text-white">CodeSchool</span>
+          <span className="font-extrabold text-white text-xl">CodeSchool</span>
         </div>
-        <p className="text-gray-600 text-sm">© 2025 CodeSchool. Все права защищены.</p>
+        <p className="text-gray-600 text-sm">© 2026 CodeSchool. Все права защищены.</p>
       </div>
-      <div className="flex gap-6 text-sm text-gray-500">
-        <a href="#" className="hover:text-neon-green transition-colors">Политика конфиденциальности</a>
-        <a href="#" className="hover:text-neon-green transition-colors">Оферта</a>
-        <a href="mailto:hello@codeschool.ru" className="hover:text-neon-green transition-colors">Контакты</a>
+
+      {/* Right Zone: Contacts & Links */}
+      <div className="flex flex-col items-center md:items-end gap-5">
+        {/* Contacts (Phone + Socials) */}
+        <div className="flex flex-col sm:flex-row items-center gap-6">
+          <a
+            href="tel:+79990000000"
+            className="font-mono text-neon-green text-xl hover:text-white transition-colors drop-shadow-[0_0_5px_rgba(0,255,135,0.4)]"
+          >
+            +7 (999) 000-00-00
+          </a>
+          <div className="flex items-center gap-5 text-2xl">
+            <a
+              href="https://t.me/yourboturl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 transition-all duration-300 hover:text-neon-purple hover:drop-shadow-[0_0_8px_rgba(191,90,242,0.8)] hover:scale-110"
+              aria-label="Telegram"
+            >
+              <FaTelegramPlane />
+            </a>
+            <a
+              href="https://wa.me/79990000000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 transition-all duration-300 hover:text-neon-purple hover:drop-shadow-[0_0_8px_rgba(191,90,242,0.8)] hover:scale-110"
+              aria-label="WhatsApp"
+            >
+              <FaWhatsapp />
+            </a>
+          </div>
+        </div>
+
+        {/* Legal Links (Privacy, Offer) */}
+        <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
+          <a href="#" className="hover:text-neon-green transition-colors">Политика конфиденциальности</a>
+          <a href="#" className="hover:text-neon-green transition-colors">Оферта</a>
+          <a href="mailto:hello@codeschool.ru" className="hover:text-neon-green transition-colors">Контакты</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -552,18 +620,28 @@ const Footer = () => (
 
 // ── Main Export ────────────────────────────────────────────────────────────────
 export default function LandingPage() {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalData, setModalData] = useState({})
+
+  const openModal = (data = {}) => {
+    setModalData(data)
+    setModalOpen(true)
+  }
+  const closeModal = () => setModalOpen(false)
+
   return (
     <div className="min-h-screen bg-dark-900">
-      <Navbar />
-      <HeroSection />
+      <Navbar openModal={openModal} />
+      <HeroSection openModal={openModal} />
       <ProblemsSection />
       <HowItWorksSection />
-      <CoursesSection />
+      <CoursesSection openModal={openModal} />
       <LivesSystemSection />
       <TeachersSection />
-      <PricingSection />
+      <PricingSection openModal={openModal} />
       <FAQSection />
       <Footer />
+      <OrderModal isOpen={modalOpen} onClose={closeModal} initialData={modalData} />
     </div>
   )
 }
