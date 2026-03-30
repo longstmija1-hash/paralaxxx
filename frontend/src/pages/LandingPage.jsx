@@ -40,7 +40,7 @@ const Navbar = ({ openModal }) => {
 
 // ── Hero Section ───────────────────────────────────────────────────────────────
 const HeroSection = ({ openModal }) => (
-  <section id="hero" className="relative min-h-[100svh] w-full flex flex-col overflow-hidden pt-20">
+  <section id="hero" className="relative min-h-[100svh] w-full flex flex-col overflow-hidden pt-40">
     {/* Animated grid bg */}
     <div className="absolute inset-0 cyber-bg opacity-60" />
     {/* Radial glow */}

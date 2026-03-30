@@ -12,6 +12,7 @@ export default {
           yellow: '#ffd60a',
         },
         dark: {
+          950: '#020204',
           900: '#050508',
           800: '#0d0d14',
           700: '#12121e',
@@ -31,6 +32,7 @@ export default {
         'heart-break': 'heart-break 0.6s ease-out forwards',
         'coin-pop': 'coin-pop 0.4s ease-out forwards',
         'scanline': 'scanline 8s linear infinite',
+        'ticker': 'ticker 20s linear infinite',
       },
       keyframes: {
         'pulse-neon': {
@@ -63,6 +65,10 @@ export default {
         scanline: {
           '0%': { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(100vh)' },
+        },
+        ticker: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
       backgroundImage: {

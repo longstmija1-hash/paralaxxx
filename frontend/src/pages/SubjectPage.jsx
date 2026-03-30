@@ -96,7 +96,7 @@ export default function SubjectPage() {
 
       <Navbar openModal={openModal} />
 
-      <main className="flex-grow pt-32 pb-24 px-4 relative overflow-hidden">
+      <main className="flex-grow pt-40 pb-24 px-4 relative overflow-hidden">
         {/* Background glow effects */}
         <div className="absolute inset-0 cyber-bg opacity-40" />
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/5 blur-[120px] rounded-full pointer-events-none" />
