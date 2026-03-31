@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import LandingPage from './pages/LandingPage'
 import SubjectPage from './pages/SubjectPage'
 import AnnouncementMarquee from './components/AnnouncementMarquee'
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <CookieConsent />
+      <Analytics />
     </>
   )
 }
