@@ -2,6 +2,7 @@ import { useState, Suspense, lazy } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 const OrderModal = lazy(() => import('./OrderModal'))
 import { FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
+import ParallaxLogo from '../components/Logo'
 
 // ── Navbar ─────────────────────────────────────────────────────────────────────
 const Navbar = ({ openModal }) => {
@@ -9,19 +10,8 @@ const Navbar = ({ openModal }) => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-dark-500">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3 group cursor-pointer">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded bg-dark-800 border border-neon-purple/40 overflow-hidden shadow-[0_0_10px_rgba(191,90,242,0.2)] group-hover:shadow-[0_0_20px_rgba(191,90,242,0.6)] group-hover:border-neon-purple transition-all duration-300">
-            <div className="absolute inset-0 bg-neon-purple/10 group-hover:bg-neon-purple/20 transition-colors" />
-            <span className="relative z-10 text-lg font-mono font-black text-neon-purple drop-shadow-[0_0_5px_rgba(191,90,242,0.8)]">100</span>
-          </div>
-          <div className="flex flex-col justify-center">
-            <span className="font-black text-white text-lg leading-none tracking-wide uppercase transition-colors duration-300">
-              С<span className="text-neon-green ml-[1px] mr-[1px] drop-shadow-[0_0_8px_rgba(0,255,135,0.8)]">100</span>ТЫЙ
-            </span>
-            <span className="text-[9px] text-gray-400 font-mono tracking-[0.3em] uppercase mt-1">
-              Уровень
-            </span>
-          </div>
+        <a href="#" className="flex items-center group cursor-pointer" style={{ textDecoration: 'none' }}>
+          <ParallaxLogo size="md" onClick={undefined} />
         </a>
         <div className="hidden md:flex items-center gap-8 text-sm text-gray-400">
           <a href="#courses" className="hover:text-neon-green transition-colors">Курсы</a>
@@ -613,21 +603,10 @@ const Footer = () => {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
           {/* Left Zone: Logo & Copyright */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="flex items-center gap-3 group mb-4">
-              <div className="relative flex items-center justify-center w-10 h-10 rounded bg-dark-800 border border-neon-purple/40 overflow-hidden shadow-[0_0_10px_rgba(191,90,242,0.2)] group-hover:shadow-[0_0_20px_rgba(191,90,242,0.6)] group-hover:border-neon-purple transition-all duration-300">
-                <div className="absolute inset-0 bg-neon-purple/10 group-hover:bg-neon-purple/20 transition-colors" />
-                <span className="relative z-10 text-lg font-mono font-black text-neon-purple drop-shadow-[0_0_5px_rgba(191,90,242,0.8)]">100</span>
-              </div>
-              <div className="flex flex-col justify-center items-start">
-                <span className="font-black text-white text-lg leading-none tracking-wide uppercase transition-colors duration-300">
-                  С<span className="text-neon-green ml-[1px] mr-[1px] drop-shadow-[0_0_8px_rgba(0,255,135,0.8)]">100</span>ТЫЙ
-                </span>
-                <span className="text-[9px] text-gray-400 font-mono tracking-[0.3em] uppercase mt-1">
-                  Уровень
-                </span>
-              </div>
+            <div className="mb-4">
+              <ParallaxLogo size="md" />
             </div>
-            <p className="text-gray-600 text-sm">© 2026 С100ТЫЙ УРОВЕНЬ. Все права защищены.</p>
+            <p className="text-gray-600 text-sm">© 2026 ПАРАЛЛАКС. Все права защищены.</p>
           </div>
 
           {/* Right Zone: Contacts & Links */}

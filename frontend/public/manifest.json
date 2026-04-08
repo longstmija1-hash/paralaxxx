@@ -1,10 +1,10 @@
 {
-  "name": "С100ТЫЙ УРОВЕНЬ ТВОИХ ЗНАНИЙ",
-  "short_name": "С100ТЫЙ УРОВЕНЬ",
+  "name": "ПАРАЛЛАКС — Образовательная экосистема",
+  "short_name": "ПАРАЛЛАКС",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#121212",
-  "theme_color": "#bf5af2",
+  "background_color": "#000000",
+  "theme_color": "#3b82f6",
   "icons": [
     {
       "src": "/favicon.svg",
