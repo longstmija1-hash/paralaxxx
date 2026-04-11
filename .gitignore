@@ -30,3 +30,23 @@ Thumbs.db
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# ── Python Backend ──────────────────────────────────────────
+# Виртуальное окружение (очень тяжелое, у каждого своё)
+backend/**/venv/
+backend/**/.venv/
+
+# Кэш интерпретатора Python (генерируется автоматически)
+backend/**/__pycache__/
+backend/**/*.py[cod]
+backend/**/*.pyo
+
+# SQLite база данных (локальная, не для репозитория)
+backend/**/*.db
+backend/**/*.db-shm
+backend/**/*.db-wal
+
+# ── Next.js ─────────────────────────────────────────────────
+# Кэш сборки Next.js
+frontend/.next/
+frontend/out/

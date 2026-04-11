@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+
 import { toast } from 'react-hot-toast'
 
 const PROGRAMS = [
@@ -156,15 +156,11 @@ export default function OrderModal({ isOpen, onClose, initialData = {} }) {
   }
 
   return (
-    <AnimatePresence>
+    <>
       {isOpen && (
-        <motion.div
+        <div
           key="overlay"
           className="fixed inset-0 z-[200] flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
         >
           {/* Backdrop */}
           <div
@@ -173,14 +169,10 @@ export default function OrderModal({ isOpen, onClose, initialData = {} }) {
           />
 
           {/* Modal window */}
-          <motion.div
+          <div
             key="window"
             className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-dark-900 border-2 border-neon-purple z-10"
             style={{ boxShadow: '0 0 40px rgba(191,90,242,0.4), 0 0 80px rgba(191,90,242,0.15)' }}
-            initial={{ opacity: 0, scale: 0.92, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 20 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
           >
             {/* Top accent line */}
             <div className="h-px bg-gradient-to-r from-transparent via-neon-purple to-transparent" />
@@ -195,11 +187,8 @@ export default function OrderModal({ isOpen, onClose, initialData = {} }) {
                 ✕
               </button>
 
-              <motion.div
+              <div
                 key="form"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
               >
                 {/* Header */}
                 <div className="mb-6">
@@ -313,12 +302,12 @@ export default function OrderModal({ isOpen, onClose, initialData = {} }) {
                     </p>
                   </div>
                 </form>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   )
 }
 

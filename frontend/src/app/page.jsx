@@ -1,6 +1,8 @@
+"use client";
+
 import { useState, Suspense, lazy } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-const OrderModal = lazy(() => import('./OrderModal'))
+
+const OrderModal = lazy(() => import('../components/OrderModal'))
 import { FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
 import ParallaxLogo from '../components/Logo'
 
@@ -39,7 +41,7 @@ const HeroSection = ({ openModal }) => (
     }} />
     {/* Floating particles */}
     {[...Array(6)].map((_, i) => (
-      <motion.div key={i}
+      <div key={i}
         className="absolute rounded-full opacity-20"
         style={{
           width: `${30 + i * 15}px`, height: `${30 + i * 15}px`,
@@ -47,22 +49,19 @@ const HeroSection = ({ openModal }) => (
           background: i % 2 === 0 ? '#00ff87' : '#bf5af2',
           filter: 'blur(20px)',
         }}
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 3 + i * 0.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }}
       />
     ))}
 
     <div className="flex-grow flex items-center justify-center relative z-10 w-full py-10">
       <div className="max-w-5xl mx-auto px-4 text-center">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <div>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-neon-green/10 border border-neon-green/30 rounded-full text-sm font-mono text-neon-green mb-6">
             <span className="w-2 h-2 bg-neon-green rounded-full animate-ping" />
             Набор открыт — 15 мест осталось
           </div>
-        </motion.div>
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+        <h1
           className="text-5xl sm:text-6xl md:text-7xl font-black leading-tight mb-6"
         >
           <span className="text-white">Прокачаем</span>{' '}
@@ -72,18 +71,16 @@ const HeroSection = ({ openModal }) => (
           <span className="text-neon-purple" style={{ textShadow: '0 0 20px rgba(191,90,242,0.5)' }}>
             экзаменам
           </span>{' '}
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+        <p
           className="text-xl text-gray-400 max-w-2xl mx-auto mb-10"
         >
           Твои школьные уроки с суперсилой! Применяй знания по физике, химии, математике и другим предметам.
           Прокачивай знания под надзором профи. Школа, в которую хочется возвращаться.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
+        <div
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <button onClick={() => openModal({})} className="btn-neon text-lg px-8 py-4 gap-2">
@@ -92,11 +89,10 @@ const HeroSection = ({ openModal }) => (
           <a href="#courses" className="btn-neon-outline text-lg px-8 py-4">
             Посмотреть курсы
           </a>
-        </motion.div>
+        </div>
 
         {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}
+        <div
           className="flex flex-wrap justify-center gap-8 mt-16"
         >
           {[
@@ -114,18 +110,17 @@ const HeroSection = ({ openModal }) => (
             <div className="text-sm text-neutral-500 line-through">жизни in game</div>
             <span className="text-sm text-neutral-600 block mt-1">(в разработке)</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
 
     {/* Scroll indicator */}
-    <motion.div
+    <div
       className="relative z-10 flex flex-col items-center gap-1 text-gray-600 text-xs pb-8 mt-auto shrink-0"
-      animate={{ y: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}
     >
       <span>scroll</span>
       <div className="w-0.5 h-6 bg-gradient-to-b from-gray-600 to-transparent" />
-    </motion.div>
+    </div>
   </section>
 )
 
@@ -133,12 +128,12 @@ const HeroSection = ({ openModal }) => (
 const ProblemsSection = () => (
   <section className="py-24 px-4">
     <div className="max-w-6xl mx-auto">
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+      <div className="text-center mb-16">
         <h2 className="section-heading">Узнаёшь себя?</h2>
-      </motion.div>
+      </div>
       <div className="grid md:grid-cols-2 gap-8">
         {/* Parents */}
-        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+        <div
           className="cyber-card cyber-card-purple border-neon-purple/20">
           <div className="flex items-center gap-3 mb-6">
             <span className="text-3xl">👨‍👩‍👧</span>
@@ -157,9 +152,9 @@ const ProblemsSection = () => (
               </li>
             ))}
           </ul>
-        </motion.div>
+        </div>
         {/* Kids */}
-        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+        <div
           className="cyber-card border-neon-green/20">
           <div className="flex items-center gap-3 mb-6">
             <span className="text-3xl">🎮</span>
@@ -178,7 +173,7 @@ const ProblemsSection = () => (
               </li>
             ))}
           </ul>
-        </motion.div>
+        </div>
       </div>
     </div>
   </section>
@@ -195,14 +190,12 @@ const steps = [
 const HowItWorksSection = () => (
   <section className="py-24 px-4 bg-dark-800/50">
     <div className="max-w-6xl mx-auto">
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+      <div className="text-center mb-16">
         <h2 className="section-heading">Как проходит обучение</h2>
-      </motion.div>
+      </div>
       <div className="flex flex-col md:flex-row items-stretch gap-4">
         {steps.map((step, i) => (
-          <motion.div key={step.title}
-            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+          <div key={step.title}
             className="flex-1 relative"
           >
             {i < steps.length - 1 && (
@@ -219,14 +212,12 @@ const HowItWorksSection = () => (
                   }}
                 />
                 {/* Animated energy spark */}
-                <motion.div
+                <div
                   className="absolute top-0 h-full w-20"
                   style={{
                     background: 'linear-gradient(90deg, transparent 0%, #00ff87 45%, #0a84ff 55%, transparent 100%)',
                     filter: 'blur(1px)',
                   }}
-                  animate={{ x: ['-80px', '200%'] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: 'linear', repeatDelay: 0.4, delay: i * 0.3 }}
                 />
               </div>
             )}
@@ -254,7 +245,7 @@ const HowItWorksSection = () => (
                 <p className="text-gray-500 text-xs">{step.desc}</p>
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>
@@ -292,15 +283,13 @@ const courses = [
 const CoursesSection = ({ openModal }) => (
   <section id="courses" className="py-24 px-4">
     <div className="max-w-6xl mx-auto">
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+      <div className="text-center mb-16">
         <h2 className="section-heading">Наши направления</h2>
         <p className="section-sub mx-auto">Выбираем по возрасту и уровню. Начни с бесплатного урока.</p>
-      </motion.div>
+      </div>
       <div className="grid md:grid-cols-3 gap-6">
         {courses.map((c, i) => (
-          <motion.div key={c.level}
-            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ delay: i * 0.15 }}
+          <div key={c.level}
             className={`cyber-card relative overflow-hidden ${c.featured ? 'border-neon-purple/40 glow-purple' : ''}`}
           >
             {c.featured && (
@@ -325,7 +314,7 @@ const CoursesSection = ({ openModal }) => (
             >
               Записаться →
             </button>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>
@@ -338,7 +327,7 @@ const LivesSystemSection = () => (
     <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, rgba(255,69,58,0.07) 0%, transparent 65%)' }} />
     <div className="max-w-5xl mx-auto relative z-10">
       <div className="grid md:grid-cols-2 gap-12 items-center">
-        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+        <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-xs font-semibold mb-4">
             ⚠️ ВАЖНО: ЭТО НЕ ШУТКА
           </div>
@@ -363,8 +352,8 @@ const LivesSystemSection = () => (
               </div>
             ))}
           </div>
-        </motion.div>
-        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+        </div>
+        <div
           className="text-center">
           <div className="inline-block p-8 bg-dark-700 border border-red-500/20 rounded-2xl"
             style={{ boxShadow: '0 0 40px rgba(255,69,58,0.15)' }}>
@@ -381,7 +370,7 @@ const LivesSystemSection = () => (
             Это <span className="text-white">невероятно мотивирует</span> детей и радует родителей.
             Ребёнок наконец-то делает всё сам.
           </p>
-        </motion.div>
+        </div>
       </div>
     </div>
   </section>
@@ -396,19 +385,18 @@ const teachers = [
 const TeachersSection = () => (
   <section id="teachers" className="py-24 px-4">
     <div className="max-w-5xl mx-auto">
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+      <div className="text-center mb-16">
         <h2 className="section-heading">Преподаватели</h2>
         <p className="section-sub mx-auto">Тебя будут учить молодые профи, которые горят своим делом. Мы превращаем скучные параграфы в понятные лайфхаки. С нами ты не заметишь, как пролетит занятие. ВПЕРЕД ЗА ЗНАНИЯМИ!</p>
-      </motion.div>
+      </div>
       <div className="grid md:grid-cols-3 gap-6">
         {teachers.map((t, i) => (
-          <motion.div key={t.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="cyber-card text-center">
+          <div key={t.name} className="cyber-card text-center">
             <div className="text-6xl mb-4">{t.emoji}</div>
             <h3 className="text-lg font-bold text-white mb-1">{t.name}</h3>
             <div className="text-xs font-mono text-neon-green mb-3">{t.role}</div>
             <p className="text-gray-500 text-sm">{t.achievement}</p>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>
@@ -419,13 +407,13 @@ const TeachersSection = () => (
 const PricingSection = ({ openModal }) => (
   <section id="pricing" className="py-24 px-4 bg-dark-800/50">
     <div className="max-w-6xl mx-auto">
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+      <div className="text-center mb-16">
         <h2 className="section-heading">Выбери тариф</h2>
         <p className="section-sub mx-auto">Любые предметы, которые у нас есть - просто нужно начать</p>
-      </motion.div>
+      </div>
       <div className="grid md:grid-cols-3 gap-8">
         {/* Listener */}
-        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+        <div
           className="cyber-card flex flex-col">
           <div className="text-gray-500 text-xs font-mono uppercase tracking-widest mb-2">Слушатель</div>
           <div className="text-4xl font-black text-white mb-1">от 1 000 <span className="text-lg text-gray-500">₽/занятие</span></div>
@@ -440,9 +428,9 @@ const PricingSection = ({ openModal }) => (
             ))}
           </ul>
           <button onClick={() => openModal({ selectedTariff: 'listener' })} className="btn-neon-outline w-full text-center block mt-6 sm:mt-auto shrink-0">Выбрать</button>
-        </motion.div>
+        </div>
         {/* Student */}
-        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+        <div
           className="cyber-card border-neon-green/40 relative overflow-hidden flex flex-col"
           style={{ boxShadow: '0 0 30px rgba(0,255,135,0.1)' }}>
           <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-neon-green to-transparent" />
@@ -471,9 +459,9 @@ const PricingSection = ({ openModal }) => (
             ))}
           </ul>
           <button onClick={() => openModal({ selectedTariff: 'student' })} className="btn-neon w-full text-center block mt-6 sm:mt-auto shrink-0">Записаться сейчас</button>
-        </motion.div>
+        </div>
         {/* Webinars */}
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        <div
           className="cyber-card border-neon-purple/40 relative overflow-hidden flex flex-col"
           style={{ boxShadow: '0 0 30px rgba(191,90,242,0.1)' }}>
           <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-neon-purple to-transparent" />
@@ -492,7 +480,7 @@ const PricingSection = ({ openModal }) => (
             ))}
           </ul>
           <button onClick={() => openModal({ selectedTariff: 'webinar' })} className="btn-neon-outline w-full text-center block mt-6 sm:mt-auto shrink-0" style={{ borderColor: 'rgba(191,90,242,0.4)', color: '#bf5af2' }}>Выбрать</button>
-        </motion.div>
+        </div>
       </div>
     </div>
   </section>
@@ -508,40 +496,32 @@ const faqs = [
 ]
 
 const AccordionItem = ({ faq, isOpen, onClick }) => (
-  <motion.div
-    layout="position"
+  <div
     className="bg-dark-900/40 border border-dark-700 hover:border-neon-purple/50 rounded-xl mb-4 overflow-hidden transition-colors duration-300"
-    initial={false}
   >
     <button
       onClick={onClick}
       className="w-full text-left p-4 flex items-center justify-between gap-4 select-none"
     >
       <span className="font-semibold text-white text-base leading-relaxed">{faq.q}</span>
-      <motion.span
+      <span
         className="text-neon-green text-2xl font-light transform origin-center flex-shrink-0"
-        animate={{ rotate: isOpen ? 45 : 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       >
         +
-      </motion.span>
+      </span>
     </button>
-    <AnimatePresence initial={false}>
+    
       {isOpen && (
-        <motion.div
+        <div
           key="content"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         >
           <div className="px-4 pb-4 pt-0 text-gray-400 text-sm leading-relaxed border-t border-dark-700/50 mt-1">
             {faq.a}
           </div>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
-  </motion.div>
+    
+  </div>
 )
 
 const FAQSection = () => {
@@ -549,9 +529,9 @@ const FAQSection = () => {
   return (
     <section id="faq" className="py-24 px-4">
       <div className="max-w-3xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+        <div className="text-center mb-12">
           <h2 className="section-heading">Частые вопросы</h2>
-        </motion.div>
+        </div>
         <div>
           {faqs.map((faq, index) => (
             <AccordionItem
@@ -570,10 +550,7 @@ const FAQSection = () => {
 // ── Privacy Modal ──────────────────────────────────────────────────────────────
 const PrivacyModal = ({ onClose }) => (
   <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-dark-900/80 backdrop-blur-sm" onClick={onClose}>
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
+    <div
       onClick={(e) => e.stopPropagation()}
       className="relative w-full max-w-2xl bg-dark-900 border border-neon-purple rounded-2xl shadow-[0_0_30px_rgba(191,90,242,0.2)] flex flex-col"
     >
@@ -590,7 +567,7 @@ const PrivacyModal = ({ onClose }) => (
       <div className="p-6 border-t border-neon-purple/20 flex justify-end">
         <button onClick={onClose} className="btn-neon px-6 py-2">Закрыть</button>
       </div>
-    </motion.div>
+    </div>
   </div>
 )
 
@@ -649,9 +626,9 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <AnimatePresence>
+      
         {isPrivacyOpen && <PrivacyModal onClose={() => setIsPrivacyOpen(false)} />}
-      </AnimatePresence>
+      
     </>
   )
 }

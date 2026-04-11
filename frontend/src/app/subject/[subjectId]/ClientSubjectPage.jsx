@@ -1,16 +1,15 @@
-import { useState, lazy, Suspense } from 'react'
-import { useParams, Link, Navigate } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FaTelegramPlane } from 'react-icons/fa'
-import { subjectsData } from '../data/subjectsData'
+"use client";
 
-const OrderModal = lazy(() => import('./OrderModal'))
+import { useState, lazy, Suspense } from 'react';
+import Link from 'next/link';
+import { FaTelegramPlane } from 'react-icons/fa';
+
+const OrderModal = lazy(() => import('../../../components/OrderModal'));
 
 const Navbar = ({ openModal }) => (
   <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-dark-500">
     <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-      <Link to="/" className="flex items-center gap-3 group cursor-pointer">
+      <Link href="/" className="flex items-center gap-3 group cursor-pointer">
         <div className="relative flex items-center justify-center w-10 h-10 rounded bg-dark-800 border border-neon-purple/40 overflow-hidden shadow-[0_0_10px_rgba(191,90,242,0.2)] group-hover:shadow-[0_0_20px_rgba(191,90,242,0.6)] group-hover:border-neon-purple transition-all duration-300">
           <div className="absolute inset-0 bg-neon-purple/10 group-hover:bg-neon-purple/20 transition-colors" />
           <span className="relative z-10 text-lg font-mono font-black text-neon-purple drop-shadow-[0_0_5px_rgba(191,90,242,0.8)]">100</span>
@@ -25,15 +24,15 @@ const Navbar = ({ openModal }) => (
         </div>
       </Link>
       <div className="hidden md:flex items-center gap-8 text-sm text-gray-400">
-        <Link to="/" className="hover:text-neon-green transition-colors">На главную</Link>
-        <Link to="/#courses" className="hover:text-neon-green transition-colors">Все предметы</Link>
+        <Link href="/" className="hover:text-neon-green transition-colors">На главную</Link>
+        <Link href="/#courses" className="hover:text-neon-green transition-colors">Все предметы</Link>
       </div>
       <div className="flex items-center gap-3">
         <button onClick={openModal} className="btn-neon text-sm px-4 py-2">Записаться</button>
       </div>
     </div>
   </nav>
-)
+);
 
 const Footer = () => (
   <footer className="border-t border-dark-500 py-12 px-4 bg-dark-900/50">
@@ -66,69 +65,52 @@ const Footer = () => (
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-          <Link to="/" className="hover:text-neon-green transition-colors">На главную</Link>
+          <Link href="/" className="hover:text-neon-green transition-colors">На главную</Link>
         </div>
       </div>
     </div>
   </footer>
-)
+);
 
-export default function SubjectPage() {
-  const { subjectId } = useParams()
-  const subject = subjectsData[subjectId]
-
-  if (!subject) return <Navigate to="/" replace />
-
-  const [modalOpen, setModalOpen] = useState(false)
+export default function ClientSubjectPage({ subject }) {
+  const [modalOpen, setModalOpen] = useState(false);
   
   const openModal = () => {
-    setModalOpen(true)
-  }
+    setModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-dark-900 flex flex-col">
-      <Helmet>
-        <title>{subject.title}</title>
-        <meta name="description" content={subject.description} />
-        <meta property="og:title" content={subject.title} />
-        <meta property="og:description" content={subject.description} />
-      </Helmet>
-
       <Navbar openModal={openModal} />
 
       <main className="flex-grow pt-40 pb-24 px-4 relative overflow-hidden">
-        {/* Background glow effects */}
         <div className="absolute inset-0 cyber-bg opacity-40" />
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/5 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
-          {/* Breadcrumbs */}
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="w-full mb-10">
-            <Link to="/" className="inline-flex items-center text-gray-400 hover:text-neon-green transition-colors text-sm font-mono gap-2">
+          <div className="w-full mb-10">
+            <Link href="/" className="inline-flex items-center text-gray-400 hover:text-neon-green transition-colors text-sm font-mono gap-2">
               <span className="text-neon-purple">←</span> Назад к списку уровней
             </Link>
-          </motion.div>
+          </div>
 
           <header className="text-center mb-16">
-            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-7xl mb-6">
+            <div className="text-7xl mb-6">
               {subject.emoji}
-            </motion.div>
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            </div>
+            <h1
               className={`text-4xl md:text-5xl lg:text-6xl font-black mb-6 ${subject.color === 'neon-purple' ? 'text-neon-purple' : 'text-neon-green'} drop-shadow-[0_0_15px_currentColor]`}
             >
               {subject.title}
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+            </h1>
+            <p
               className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
             >
               {subject.description}
-            </motion.p>
+            </p>
           </header>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+          <div
             className={`cyber-card w-full mb-16 ${subject.color === 'neon-purple' ? 'border-neon-purple/40 glow-purple' : 'border-neon-green/40 glow-green'}`}
           >
             <h2 className="text-2xl font-bold text-white mb-8 border-b border-dark-700 pb-4">Почему мы?</h2>
@@ -142,13 +124,13 @@ export default function SubjectPage() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+          <div>
             <button onClick={openModal} className="btn-neon text-lg px-10 py-5">
               🚀 Записаться на первый урок
             </button>
-          </motion.div>
+          </div>
         </div>
       </main>
 
@@ -158,5 +140,5 @@ export default function SubjectPage() {
         <OrderModal isOpen={modalOpen} onClose={() => setModalOpen(false)} initialData={{ selectedProgram: subject.programName }} />
       </Suspense>
     </div>
-  )
+  );
 }
