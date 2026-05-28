@@ -103,32 +103,29 @@ export default function OrderModal({ isOpen, onClose, initialData = {} }) {
     ? TARIFF_LABELS[initialData.selectedTariff] ?? initialData.selectedTariff
     : null
 
-  const sendToTelegram = async (formData) => {
-    const BOT_TOKEN = import.meta.env.VITE_BOT_TOKEN
-    const CHAT_ID = import.meta.env.VITE_CHAT_ID
+  const sendToBackend = async (formData) => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
-    const tariffStr = formData.tariff ? `\n💳 Тариф: ${formData.tariff}` : ''
-
-    const formattedMessage = `🚨 НОВАЯ ЗАЯВКА: ОБРАБОТАТЬ!!!
-👤 Родитель: ${formData.parentName}
-👶 Ребенок: ${formData.childName} (${formData.childAge} лет)
-🎯 Программа: ${formData.program}${tariffStr}
-📱 Телефон: ${formData.phone}
-🔗 Соцсети: ${formData.social || 'N/A'}`
-
-    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    const response = await fetch(`${apiUrl}/api/leads`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: formattedMessage,
-        parse_mode: 'HTML'
-      })
+        parentName: formData.parentName,
+        childName: formData.childName,
+        childAge: Number(formData.childAge),
+        program: formData.program,
+        tariff: formData.tariff || null,
+        phone: formData.phone,
+        social: formData.social || null,
+      }),
     })
 
     if (!response.ok) {
-      throw new Error(`Telegram error: ${response.status}`)
+      const err = await response.json().catch(() => ({}))
+      throw new Error(err?.detail || `Server error: ${response.status}`)
     }
+
+    return response.json()
   }
 
   const handleSubmit = async (e) => {
@@ -138,7 +135,7 @@ export default function OrderModal({ isOpen, onClose, initialData = {} }) {
 
     setIsSubmitting(true)
     try {
-      await sendToTelegram({ ...form, tariff: tariffLabel })
+      await sendToBackend({ ...form, tariff: tariffLabel })
       toast.success('SYSTEM: DATA TRANSMITTED SUCCESSFULLY.', {
         style: { border: '1px solid #00ff87', color: '#00ff87', background: '#050508' },
         icon: null
