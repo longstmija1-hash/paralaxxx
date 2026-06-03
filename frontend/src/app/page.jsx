@@ -3,6 +3,7 @@
 import { useState, Suspense, lazy } from 'react'
 
 const OrderModal = lazy(() => import('../components/OrderModal'))
+import CoursesSection from '../components/CoursesSection'
 import { FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
 import ParallaxLogo from '../components/Logo'
 
@@ -245,75 +246,6 @@ const HowItWorksSection = () => (
                 <p className="text-gray-500 text-xs">{step.desc}</p>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-)
-
-// ── Courses Section ────────────────────────────────────────────────────────────
-const courses = [
-  {
-    level: 'Школа',
-    age: '1–11 класс',
-    color: 'neon-green',
-    emoji: '🏫',
-    subjects: ['Естественные науки', 'Гуманитарные науки', 'Точные науки'],
-    desc: 'Устраняем пробелы, подтягиваем оценки и разбираемся со сложной домашкой. Вся школьная программа в одном месте.',
-  },
-  {
-    level: 'Экзамены',
-    age: '9 и 11 класс',
-    color: 'neon-purple',
-    emoji: '🔥',
-    subjects: ['Подготовка к ОГЭ', 'Подготовка к ЕГЭ', 'Интенсив-практикум'],
-    desc: 'Целенаправленная подготовка на 90+ баллов. Разбор ловушек экзамена и психологическая подготовка.',
-    featured: true, // Выделяем этот блок как самый приоритетный
-  },
-  {
-    level: 'IT-Навыки',
-    age: 'любой возраст',
-    color: 'neon-blue',
-    emoji: '💻',
-    subjects: ['Scratch', 'Python / C++', 'Web-разработка'],
-    desc: 'От создания первых игр до серьезных IT-проектов. Развиваем алгоритмическое мышление и создаем крутое портфолио.',
-  },
-]
-const CoursesSection = ({ openModal }) => (
-  <section id="courses" className="py-24 px-4">
-    <div className="max-w-6xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="section-heading">Наши направления</h2>
-        <p className="section-sub mx-auto">Выбираем по возрасту и уровню. Начни с бесплатного урока.</p>
-      </div>
-      <div className="grid md:grid-cols-3 gap-6">
-        {courses.map((c, i) => (
-          <div key={c.level}
-            className={`cyber-card relative overflow-hidden ${c.featured ? 'border-neon-purple/40 glow-purple' : ''}`}
-          >
-            {c.featured && (
-              <div className="absolute top-3 right-3 px-2 py-0.5 bg-neon-purple/20 border border-neon-purple/40 rounded text-xs text-neon-purple font-semibold">
-                Топ выбор
-              </div>
-            )}
-            <div className="text-4xl mb-4">{c.emoji}</div>
-            <div className={`text-xs font-mono text-${c.color} uppercase tracking-widest mb-1`}>{c.age}</div>
-            <h3 className="text-xl font-black text-white mb-3">{c.level}</h3>
-            <p className="text-gray-400 text-sm mb-4">{c.desc}</p>
-            <ul className="space-y-2">
-              {c.subjects.map((s) => (
-                <li key={s} className="flex items-center gap-2 text-sm text-gray-300">
-                  <span className={`text-${c.color}`}>▸</span> {s}
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => openModal({ selectedProgram: c.level })}
-              className={`mt-6 btn-neon-outline w-full text-center block text-sm py-2 ${c.featured ? 'border-neon-purple/40 text-neon-purple hover:bg-neon-purple hover:text-white' : ''}`}
-            >
-              Записаться →
-            </button>
           </div>
         ))}
       </div>
