@@ -23,28 +23,33 @@ export const metadata = {
   title: 'ПАРАЛЛАКС — Подготовка к ЕГЭ, ОГЭ и IT-курсы',
   description:
     'Школьные предметы, подготовка к экзаменам и IT-программы. Кураторы, разбор ДЗ и понятный прогресс.',
+  icons: {
+    icon: '/icon.png',
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="ru" className={`${manrope.variable} ${unbounded.variable}`}>
       <head>
-        <Script id="metrika-counter" strategy="afterInteractive">
-          {`
-            (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-      
-            ym(XXXXXXXX, "init", {
-                 clickmap:true,
-                 trackLinks:true,
-                 accurateTrackBounce:true,
-                 webvisor:true
-            });
-          `}
-        </Script>
+        {process.env.NEXT_PUBLIC_YM_ID ? (
+          <Script id="metrika-counter" strategy="afterInteractive">
+            {`
+              (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+              m[i].l=1*new Date();
+              for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+              k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+              (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+              ym(${Number(process.env.NEXT_PUBLIC_YM_ID)}, "init", {
+                   clickmap:true,
+                   trackLinks:true,
+                   accurateTrackBounce:true,
+                   webvisor:true
+              });
+            `}
+          </Script>
+        ) : null}
       </head>
       <body className={`${manrope.className} antialiased`}>
         <AnnouncementMarquee />

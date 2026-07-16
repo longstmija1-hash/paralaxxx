@@ -1,12 +1,12 @@
 'use client'
 
+import Image from 'next/image'
 import { Heart, Skull } from 'lucide-react'
 import SectionShell from './ui/SectionShell'
 import UmsCard from './ui/UmsCard'
-import MediaPlaceholder from './ui/MediaPlaceholder'
+import WaveAccent from './ui/WaveAccent'
 import {
   LIVES_ROWS,
-  LIVES_HEADING,
   LIVES_BODY,
   LIVES_FOOTNOTE,
 } from '../../data/landingContent'
@@ -31,7 +31,9 @@ export default function LivesSystemSection() {
     <SectionShell id="lives" variant="tint">
       <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
         <UmsCard padding="lg">
-          <h2 className="section-heading text-2xl md:text-3xl mb-4">{LIVES_HEADING}</h2>
+          <h2 className="section-heading text-2xl md:text-3xl mb-4">
+            Дисциплина работает сама. <WaveAccent variant="bounce">Без нервов родителей</WaveAccent>.
+          </h2>
           <p className="text-ums-muted mb-6">{LIVES_BODY}</p>
           <div className="space-y-3">
             {LIVES_ROWS.map((row) => (
@@ -50,7 +52,15 @@ export default function LivesSystemSection() {
         </UmsCard>
 
         <div>
-          <MediaPlaceholder label="Скриншот системы жизней" aspect="16/10" />
+          <div className="relative overflow-hidden rounded-[28px] border border-[#dce3ff] bg-ums-tint aspect-[16/10] shadow-[0_12px_40px_rgba(124,145,249,0.12)]">
+            <Image
+              src="/images/lives-system.jpg"
+              alt="Система трёх жизней: статус ученика, коины и награды за вовремя сданную домашку"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 560px"
+            />
+          </div>
           <p className="text-ums-muted text-sm mt-6">{LIVES_FOOTNOTE}</p>
         </div>
       </div>

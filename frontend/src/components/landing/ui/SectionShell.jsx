@@ -9,7 +9,7 @@ export default function SectionShell({
     variant === 'white' ? 'bg-white' : variant === 'tint' ? 'bg-ums-tint' : 'bg-ums-bg'
 
   return (
-    <section id={id} className={`landing-section py-12 sm:py-16 md:py-24 px-4 ${bg} ${className}`}>
+    <section id={id} className={`landing-section py-8 sm:py-14 md:py-24 px-4 ${bg} ${className}`}>
       <div className={`max-w-6xl mx-auto ${containerClassName}`}>{children}</div>
     </section>
   )

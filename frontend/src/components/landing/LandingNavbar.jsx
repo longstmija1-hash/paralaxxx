@@ -32,14 +32,14 @@ export default function LandingNavbar({ onOpenModal, onScrollToForm }) {
     <nav className="fixed top-0 left-0 right-0 z-50 h-14">
       <div className="relative z-20 h-14 bg-white/95 backdrop-blur-md border-b border-ums-border shadow-sm">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 h-full flex items-center justify-between gap-2 sm:gap-4">
-          <a href="#" className="flex items-center shrink-0 cursor-pointer min-w-0" style={{ textDecoration: 'none' }}>
-            <span className="md:hidden">
-              <ParallaxLogo size="sm" onClick={undefined} />
+          <div className="flex items-center shrink-0 h-9">
+            <span className="md:hidden inline-flex items-center">
+              <ParallaxLogo size="sm" href="#" showWordmark={false} />
             </span>
-            <span className="hidden md:inline-flex">
-              <ParallaxLogo size="md" onClick={undefined} />
+            <span className="hidden md:inline-flex items-center">
+              <ParallaxLogo size="md" href="#" />
             </span>
-          </a>
+          </div>
 
           <div className="hidden lg:flex items-center gap-6 text-sm text-ums-muted">
             {NAV_LINKS.map((link) => (
@@ -53,7 +53,7 @@ export default function LandingNavbar({ onOpenModal, onScrollToForm }) {
             ))}
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 h-9">
             <a
               href={CONTACT_PHONE_HREF}
               className="hidden md:inline-flex items-center gap-2 text-[#111] text-sm hover:text-ums-muted transition-colors duration-200 cursor-pointer"
@@ -61,19 +61,19 @@ export default function LandingNavbar({ onOpenModal, onScrollToForm }) {
               <Phone className="w-4 h-4 shrink-0" aria-hidden />
               {CONTACT_PHONE}
             </a>
-            <UmsButton variant="secondary" onClick={handleScrollForm} className="hidden sm:inline-flex text-sm px-4 !py-2">
+            <UmsButton variant="secondary" onClick={handleScrollForm} className="hidden sm:inline-flex text-sm px-4 !py-0 h-9">
               Консультация
             </UmsButton>
-            <UmsButton onClick={handleCta} className="hidden sm:inline-flex text-sm px-4 !py-2">
+            <UmsButton onClick={handleCta} className="hidden sm:inline-flex text-sm px-4 !py-0 h-9">
               Записаться
             </UmsButton>
-            <UmsButton onClick={handleCta} className="sm:hidden text-xs px-3 !py-2">
+            <UmsButton onClick={handleCta} className="sm:hidden text-xs px-3 !py-0 h-9 leading-none">
               Запись
             </UmsButton>
             <button
               type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden w-11 h-11 flex items-center justify-center rounded-full border border-ums-border text-ums-muted hover:text-[#111] hover:border-[#d1d5db] transition-colors duration-200 cursor-pointer"
+              className="lg:hidden w-9 h-9 flex items-center justify-center rounded-full border border-ums-border text-ums-muted hover:text-[#111] hover:border-[#d1d5db] transition-colors duration-200 cursor-pointer"
               aria-label={mobileOpen ? 'Закрыть меню' : 'Открыть меню'}
               aria-expanded={mobileOpen}
             >

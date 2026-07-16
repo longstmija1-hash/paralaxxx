@@ -1,9 +1,9 @@
 import SectionShell from './ui/SectionShell'
 import UmsCard from './ui/UmsCard'
 import MediaPlaceholder from './ui/MediaPlaceholder'
+import WaveAccent from './ui/WaveAccent'
 import {
   SUPPORT_ROLES,
-  SUPPORT_HEADING,
   SUPPORT_SUB,
 } from '../../data/landingContent'
 
@@ -11,7 +11,9 @@ export default function SupportSection() {
   return (
     <SectionShell id="support" variant="white">
       <div className="text-center mb-16">
-        <h2 className="section-heading">{SUPPORT_HEADING}</h2>
+        <h2 className="section-heading">
+          Целая команда заботы вокруг <WaveAccent variant="arc">одного ученика</WaveAccent>
+        </h2>
         <p className="section-sub mx-auto">{SUPPORT_SUB}</p>
       </div>
 

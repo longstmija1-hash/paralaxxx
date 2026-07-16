@@ -6,6 +6,7 @@ import SectionShell from './ui/SectionShell'
 import UmsCard from './ui/UmsCard'
 import UmsButton from './ui/UmsButton'
 import UmsBadge from './ui/UmsBadge'
+import WaveAccent from './ui/WaveAccent'
 import { COUNTDOWN_TARGET, COUNTDOWN_COPY } from '../../data/landingContent'
 
 function getTimeLeft(target) {
@@ -37,9 +38,6 @@ export default function CountdownSection({ onOpenModal }) {
   const [time, setTime] = useState(() => getTimeLeft(COUNTDOWN_TARGET))
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) return
-
     const id = setInterval(() => {
       setTime(getTimeLeft(COUNTDOWN_TARGET))
     }, 1000)
@@ -54,7 +52,15 @@ export default function CountdownSection({ onOpenModal }) {
         </div>
 
         <h2 className="section-heading">
-          {time.expired ? COUNTDOWN_COPY.titleExpired : COUNTDOWN_COPY.title}
+          {time.expired ? (
+            <>
+              Успейте записаться по <WaveAccent variant="pulse">выгодной цене</WaveAccent>
+            </>
+          ) : (
+            <>
+              До повышения цены <WaveAccent variant="pulse">осталось</WaveAccent>
+            </>
+          )}
         </h2>
         <p className="section-sub mx-auto mb-10">{COUNTDOWN_COPY.body}</p>
 

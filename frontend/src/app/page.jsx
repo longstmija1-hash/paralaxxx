@@ -4,6 +4,7 @@ import { useState, Suspense, lazy, useCallback } from 'react'
 import LandingNavbar from '../components/landing/LandingNavbar'
 import HeroSection from '../components/landing/HeroSection'
 import CountdownSection from '../components/landing/CountdownSection'
+import UrgencyStripe from '../components/landing/UrgencyStripe'
 import EarlyStartSection from '../components/landing/EarlyStartSection'
 import PainPointsSection from '../components/landing/PainPointsSection'
 import WhyStartNowSection from '../components/landing/WhyStartNowSection'
@@ -40,11 +41,12 @@ export default function LandingPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-ums-bg pb-20 lg:pb-0">
+    <div className="min-h-screen bg-ums-bg pb-[5.5rem] lg:pb-0">
       <ScrollProgress />
       <LandingNavbar onOpenModal={openModal} onScrollToForm={scrollToForm} />
       <HeroSection onOpenModal={openModal} />
       <CountdownSection onOpenModal={openModal} />
+      <UrgencyStripe onOpenModal={openModal} />
       <EarlyStartSection />
       <PainPointsSection onScrollToForm={scrollToForm} />
       <WhyStartNowSection />

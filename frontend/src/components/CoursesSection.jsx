@@ -1,13 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Check, ChevronRight } from 'lucide-react'
 import SectionShell from './landing/ui/SectionShell'
 import UmsCard from './landing/ui/UmsCard'
 import UmsButton from './landing/ui/UmsButton'
 import MediaPlaceholder from './landing/ui/MediaPlaceholder'
 import PillToggle from './landing/PillToggle'
-import { COURSES_HEADING, COURSES_SUB } from '../data/landingContent'
+import WaveAccent from './landing/ui/WaveAccent'
+import { COURSES_SUB } from '../data/landingContent'
 
 const courses = [
   {
@@ -25,6 +27,8 @@ const courses = [
         detail: 'От пробелов в алгебре до задач второй части. Контрольные, олимпиадный запас, ОГЭ и ЕГЭ.',
         topics: ['База', 'Профиль', 'Пробники'],
         format: 'Занятие 60 мин',
+        image: '/images/courses/math.jpg',
+        imageAlt: 'Курс математики — прогресс, графики и геометрия на одной платформе',
       },
       {
         name: 'Физика',
@@ -33,6 +37,8 @@ const courses = [
         detail: 'Схемы, разборы и задачи в формате школьных контрольных и экзаменов.',
         topics: ['Механика', 'Электричество', 'ОГЭ/ЕГЭ'],
         format: 'Занятие 60 мин',
+        image: '/images/courses/physics.jpg',
+        imageAlt: 'Курс физики — схемы, механика и прогресс на одной платформе',
       },
       {
         name: 'Русский язык',
@@ -41,6 +47,8 @@ const courses = [
         detail: 'Орфография, сочинения, анализ текста — с обратной связью куратора.',
         topics: ['Грамотность', 'Сочинение', 'ОГЭ/ЕГЭ'],
         format: 'Занятие 60 мин',
+        image: '/images/courses/russian.jpg',
+        imageAlt: 'Курс русского языка — сочинение, орфография и обратная связь куратора',
       },
     ],
     highlights: ['Оценки без стресса', 'Пробники ФИПИ', 'Поддержка куратора'],
@@ -61,6 +69,8 @@ const courses = [
         detail: 'Спрайты, циклы, сюжета — первый опыт «я создаю», а не только потребляю.',
         topics: ['Логика', 'Игры', 'Проекты'],
         format: '7–12 лет',
+        image: '/images/courses/scratch.jpg',
+        imageAlt: 'Курс Scratch — логика, циклы и создание игр',
       },
       {
         name: 'Frontend',
@@ -69,6 +79,8 @@ const courses = [
         detail: 'HTML, CSS, современный фронтенд — деплой и проект в портфолио на GitHub.',
         topics: ['HTML/CSS', 'UI', 'GitHub'],
         format: '12+ лет',
+        image: '/images/courses/frontend.jpg',
+        imageAlt: 'Курс Frontend — HTML/CSS, UI и портфолио на GitHub',
       },
       {
         name: 'Системная аналитика',
@@ -77,6 +89,8 @@ const courses = [
         detail: 'Учимся описывать системы, требования и логику продукта — навык, который ценят в IT.',
         topics: ['Требования', 'Схемы', 'Продукт'],
         format: '14+ лет',
+        image: '/images/courses/sys-analytics.jpg',
+        imageAlt: 'Курс системной аналитики — требования, архитектура и схемы продукта',
       },
     ],
     highlights: ['Портфолио на GitHub', 'Реальные проекты', 'Менторство практиков'],
@@ -89,7 +103,19 @@ const CATEGORY_OPTIONS = courses.map((c) => ({ id: c.id, label: c.level }))
 function SubjectCardDesktop({ subject }) {
   return (
     <UmsCard padding="sm" className="h-full flex flex-col">
-      <MediaPlaceholder label="Иллюстрация" aspect="16/9" className="mb-4" rounded="20px" />
+      {subject.image ? (
+        <div className="relative mb-4 aspect-video overflow-hidden rounded-[20px] border border-[#dce3ff] bg-ums-tint">
+          <Image
+            src={subject.image}
+            alt={subject.imageAlt || subject.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 50vw, 280px"
+          />
+        </div>
+      ) : (
+        <MediaPlaceholder label="Иллюстрация" aspect="16/9" className="mb-4" rounded="20px" />
+      )}
       <div className="flex items-start justify-between gap-2 mb-2">
         <span className="text-2xl leading-none" aria-hidden>
           {subject.icon}
@@ -121,15 +147,27 @@ function SubjectRowMobile({ subject, open, onToggle }) {
       <button
         type="button"
         onClick={onToggle}
-        className="w-full flex items-center gap-3 p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ums-accent focus-visible:ring-inset"
+        className="w-full flex items-center gap-3 p-3 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ums-accent focus-visible:ring-inset active:bg-[#fafafa]"
         aria-expanded={open}
       >
-        <span className="w-10 h-10 rounded-xl bg-ums-tint flex items-center justify-center text-lg shrink-0" aria-hidden>
-          {subject.icon}
-        </span>
+        {subject.image ? (
+          <div className="relative h-12 w-[4.5rem] shrink-0 overflow-hidden rounded-xl border border-[#dce3ff] bg-ums-tint">
+            <Image
+              src={subject.image}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="72px"
+            />
+          </div>
+        ) : (
+          <span className="w-11 h-11 rounded-xl bg-ums-tint flex items-center justify-center text-lg shrink-0" aria-hidden>
+            {subject.icon}
+          </span>
+        )}
         <div className="min-w-0 flex-1">
           <div className="font-bold text-[#111] text-sm leading-tight">{subject.name}</div>
-          <div className="text-xs text-ums-muted mt-0.5 truncate">{subject.hook}</div>
+          <div className="text-xs text-ums-muted mt-0.5 line-clamp-1">{subject.hook}</div>
         </div>
         <ChevronRight
           className={`w-4 h-4 text-ums-muted shrink-0 transition-transform duration-200 ${open ? 'rotate-90' : ''}`}
@@ -137,7 +175,18 @@ function SubjectRowMobile({ subject, open, onToggle }) {
         />
       </button>
       {open && (
-        <div className="px-3.5 pb-3.5 pt-0 border-t border-ums-border/60">
+        <div className="px-3 pb-3.5 pt-0 border-t border-ums-border/60">
+          {subject.image && (
+            <div className="relative mt-3 aspect-[16/9] overflow-hidden rounded-xl border border-[#dce3ff]">
+              <Image
+                src={subject.image}
+                alt={subject.imageAlt || subject.name}
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+            </div>
+          )}
           <p className="text-sm text-ums-muted leading-relaxed pt-3 mb-3">{subject.detail}</p>
           <div className="flex flex-wrap gap-1.5 mb-2">
             {subject.topics.map((t) => (
@@ -169,7 +218,9 @@ export default function CoursesSection({ openModal }) {
   return (
     <SectionShell id="courses" variant="white">
       <div className="text-center mb-6 sm:mb-10">
-        <h2 className="section-heading">{COURSES_HEADING}</h2>
+        <h2 className="section-heading">
+          Выберите один трек или соберите <WaveAccent variant="double">комплексную программу</WaveAccent>
+        </h2>
         <p className="section-sub mx-auto text-base sm:text-lg">{COURSES_SUB}</p>
       </div>
 

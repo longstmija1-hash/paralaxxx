@@ -16,7 +16,7 @@ const Navbar = ({ openModal }) => (
   <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-ums-border shadow-sm h-14">
     <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
       <Link href="/" className="flex items-center shrink-0 cursor-pointer" style={{ textDecoration: 'none' }}>
-        <ParallaxLogo size="md" />
+        <ParallaxLogo size="md" link={false} />
       </Link>
       <div className="hidden md:flex items-center gap-8 text-sm text-ums-muted">
         <Link href="/" className="hover:text-[#111] transition-colors">На главную</Link>

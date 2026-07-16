@@ -28,8 +28,8 @@ function SoftInput({ id, error, className = '', ...props }) {
 
 function SocialProof() {
   return (
-    <div className="mt-6 rounded-2xl bg-ums-coral text-white px-5 py-4">
-      <p className="text-sm font-semibold leading-snug mb-3 font-display">
+    <div className="mt-5 sm:mt-6 rounded-2xl bg-ums-coral text-white px-4 py-3.5 sm:px-5 sm:py-4">
+      <p className="text-[0.8rem] sm:text-sm font-semibold leading-snug mb-2.5 sm:mb-3 font-display">
         {SOCIAL_PROOF_LINE}
       </p>
       <div className="flex items-center">

@@ -1,135 +1,94 @@
-"use client";
+'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 
-// Символы для глитча: кириллица + латиница + спецсимволы
-const GLITCH_CHARS = 'ДЖЗИЦЧШЩabcdefghij0123456789!@#$%[]{}|<>?/_=+'
-const GLITCH_COLORS = ['#3b82f6', '#00ff87', '#ff0040', '#f59e0b', '#a855f7', '#22d3ee']
-
-const TEXT = 'ПАРАЛЛАКС'
-
-const DEFAULT_COLOR = '#0f172a'
-
-const sizeMap = {
-  sm: { fontSize: 18, firstLetterScale: 1.45, letterSpacing: '0.10em' },
-  md: { fontSize: 20, firstLetterScale: 1.5, letterSpacing: '0.10em' },
-  lg: { fontSize: 30, firstLetterScale: 1.45, letterSpacing: '0.12em' },
+const SIZES = {
+  sm: {
+    mark: 36,
+    text: 'text-[0.8rem] tracking-[0.1em]',
+    gap: 'gap-1.5',
+    radius: 'rounded-lg',
+    pad: 'p-0.5',
+  },
+  md: {
+    mark: 36,
+    text: 'text-[0.95rem] tracking-[0.14em]',
+    gap: 'gap-2',
+    radius: 'rounded-xl',
+    pad: 'p-[3px]',
+  },
+  lg: {
+    mark: 48,
+    text: 'text-lg tracking-[0.16em]',
+    gap: 'gap-2.5',
+    radius: 'rounded-xl',
+    pad: 'p-1',
+  },
 }
-
-const initLetters = () =>
-  TEXT.split('').map((char) => ({ char, glitching: false, color: null, shift: 0 }))
 
 /**
- * ParallaxLogo — логотип «ПАРАЛЛАКС» с глитч-эффектом при наведении.
- * При hover каждая буква хаотично перебирает случайные символы,
- * затем поочерёдно (слева направо) «возвращается» на место.
+ * Логотип: знак (хамелеон) + wordmark Unbounded.
+ * Без глитча — спокойный hover под светлый Ums-лендинг.
+ *
+ * @param {boolean} [link=true] — если false, рендерит span (когда уже обёрнут в Link)
  */
-const ParallaxLogo = ({ size = 'md', onClick }) => {
-  const [hovered, setHovered] = useState(false)
-  const [letters, setLetters] = useState(initLetters)
-  const intervalRef = useRef(null)
-  const frameRef = useRef(0)
-  const sz = sizeMap[size] || sizeMap.md
+export default function ParallaxLogo({
+  size = 'md',
+  href = '/',
+  className = '',
+  showWordmark = true,
+  link = true,
+  onClick,
+}) {
+  const sz = SIZES[size] || SIZES.md
 
-  useEffect(() => {
-    clearInterval(intervalRef.current)
-    frameRef.current = 0
+  const content = (
+    <>
+      <span
+        className={`relative shrink-0 overflow-hidden bg-ums-tint ring-1 ring-[#dce3ff] shadow-[0_2px_10px_rgba(124,145,249,0.12)] transition-[box-shadow,transform] duration-200 group-hover:shadow-[0_4px_16px_rgba(124,145,249,0.22)] group-hover:-translate-y-px ${sz.radius}`}
+        style={{ width: sz.mark, height: sz.mark }}
+      >
+        <Image
+          src="/icon.png"
+          alt=""
+          width={sz.mark}
+          height={sz.mark}
+          className={`h-full w-full object-contain transition-transform duration-200 group-hover:scale-[1.04] ${sz.pad}`}
+          priority={size !== 'lg'}
+        />
+      </span>
+      {showWordmark && (
+        <span
+          className={`font-display font-bold leading-none text-[#111] transition-colors duration-200 group-hover:text-ums-accent ${sz.text}`}
+        >
+          ПАРАЛЛАКС
+        </span>
+      )}
+    </>
+  )
 
-    if (!hovered) {
-      setLetters(initLetters())
-      return
-    }
+  const sharedClass = `group inline-flex items-center ${sz.gap} cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ums-accent/40 focus-visible:ring-offset-2 rounded-xl ${className}`.trim()
 
-    const TOTAL_FRAMES = 18
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={sharedClass}
+        aria-label="ПАРАЛЛАКС — на главную"
+      >
+        {content}
+      </button>
+    )
+  }
 
-    intervalRef.current = setInterval(() => {
-      frameRef.current++
-      const frame = frameRef.current
-
-      if (frame > TOTAL_FRAMES) {
-        clearInterval(intervalRef.current)
-        setLetters(initLetters())
-        return
-      }
-
-      setLetters(
-        TEXT.split('').map((original, i) => {
-          // буква «успокаивается» с сдвигом по индексу (слева→направо)
-          const settleAt = Math.floor(
-            TOTAL_FRAMES * 0.35 + (i / TEXT.length) * TOTAL_FRAMES * 0.55
-          )
-
-          if (frame >= settleAt) {
-            return { char: original, glitching: false, color: null, shift: 0 }
-          }
-
-          return {
-            char: GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)],
-            glitching: true,
-            color: GLITCH_COLORS[Math.floor(Math.random() * GLITCH_COLORS.length)],
-            // горизонтальный сдвиг — лёгкое «дрожание»
-            shift: (Math.random() - 0.5) * 4,
-          }
-        })
-      )
-    }, 55)
-
-    return () => clearInterval(intervalRef.current)
-  }, [hovered])
+  if (!link) {
+    return <span className={sharedClass}>{content}</span>
+  }
 
   return (
-    <button
-      onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'baseline',
-        fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-        fontWeight: 900,
-        letterSpacing: sz.letterSpacing,
-        textTransform: 'uppercase',
-        userSelect: 'none',
-        background: 'transparent',
-        border: 'none',
-        padding: 0,
-        cursor: 'pointer',
-        lineHeight: 1,
-        // общее свечение логотипа при hover
-        filter: hovered
-          ? 'drop-shadow(0 0 4px rgba(15, 23, 42, 0.15))'
-          : 'none',
-        transition: 'filter 0.3s ease',
-      }}
-      aria-label="ПАРАЛЛАКС — на главную"
-    >
-      {letters.map(({ char, glitching, color, shift }, i) => {
-        const isFirst = i === 0
-        const letterSize = isFirst ? sz.fontSize * sz.firstLetterScale : sz.fontSize
-
-        return (
-        <span
-          key={i}
-          style={{
-            fontSize: letterSize,
-            display: 'inline-block',
-            minWidth: `${letterSize * 0.66}px`,
-            textAlign: 'center',
-            color: glitching ? color : DEFAULT_COLOR,
-            textShadow: glitching
-              ? `2px 0 #ff0040, -2px 0 #00a8ff, 0 0 12px ${color}cc`
-              : 'none',
-            transform: glitching ? `translateX(${shift}px)` : 'translateX(0)',
-            transition: glitching ? 'none' : 'color 0.15s ease, text-shadow 0.15s ease, transform 0.1s ease',
-            alignSelf: 'auto',
-          }}
-        >
-          {char}
-        </span>
-        )
-      })}
-    </button>
+    <a href={href} className={sharedClass} aria-label="ПАРАЛЛАКС — на главную">
+      {content}
+    </a>
   )
 }
-
-export default ParallaxLogo

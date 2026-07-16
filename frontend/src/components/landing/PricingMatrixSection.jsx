@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { BookOpen, Check, ChevronDown } from 'lucide-react'
 import PillToggle from './PillToggle'
+import WaveAccent from './ui/WaveAccent'
 import {
   PLAN_TRACKS,
   GRADES_BY_TRACK,
@@ -255,12 +256,12 @@ export default function PricingMatrixSection({ onOpenModal }) {
     orderedTiers.find((t) => t.id === mobileTierId) || orderedTiers[0]
 
   return (
-    <section id="pricing" className="landing-section py-12 sm:py-20 md:py-24 px-4 bg-[#f7f7f7]">
+    <section id="pricing" className="landing-section py-8 sm:py-16 md:py-24 px-4 bg-[#f7f7f7]">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-2xl sm:text-4xl md:text-[2.75rem] font-black text-[#111] text-center mb-3 sm:mb-4 leading-tight font-display tracking-tight">
-          Выберите формат участия на учебный год
+        <h2 className="text-[1.35rem] sm:text-4xl md:text-[2.75rem] font-black text-[#111] text-center mb-2 sm:mb-4 leading-snug sm:leading-tight font-display tracking-tight">
+          Выберите формат участия на <WaveAccent variant="spark">учебный год</WaveAccent>
         </h2>
-        <p className="text-center text-ums-muted text-sm sm:text-base max-w-2xl mx-auto mb-6 sm:mb-10">
+        <p className="text-center text-ums-muted text-[0.95rem] sm:text-base max-w-2xl mx-auto mb-5 sm:mb-10 leading-relaxed">
           Стандарт — один трек. Про — комплекс школа + IT. Премиум — максимум и наставничество
           основателей.
         </p>
