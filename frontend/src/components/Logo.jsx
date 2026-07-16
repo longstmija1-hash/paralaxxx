@@ -8,10 +8,12 @@ const GLITCH_COLORS = ['#3b82f6', '#00ff87', '#ff0040', '#f59e0b', '#a855f7', '#
 
 const TEXT = 'ПАРАЛЛАКС'
 
+const DEFAULT_COLOR = '#0f172a'
+
 const sizeMap = {
-  sm: { fontSize: 18, letterSpacing: '0.10em' },
-  md: { fontSize: 20, letterSpacing: '0.10em' },
-  lg: { fontSize: 30, letterSpacing: '0.12em' },
+  sm: { fontSize: 18, firstLetterScale: 1.45, letterSpacing: '0.10em' },
+  md: { fontSize: 20, firstLetterScale: 1.5, letterSpacing: '0.10em' },
+  lg: { fontSize: 30, firstLetterScale: 1.45, letterSpacing: '0.12em' },
 }
 
 const initLetters = () =>
@@ -82,7 +84,7 @@ const ParallaxLogo = ({ size = 'md', onClick }) => {
       onMouseLeave={() => setHovered(false)}
       style={{
         display: 'inline-flex',
-        alignItems: 'center',
+        alignItems: 'baseline',
         fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
         fontWeight: 900,
         letterSpacing: sz.letterSpacing,
@@ -95,33 +97,37 @@ const ParallaxLogo = ({ size = 'md', onClick }) => {
         lineHeight: 1,
         // общее свечение логотипа при hover
         filter: hovered
-          ? 'drop-shadow(0 0 6px rgba(59,130,246,0.5))'
+          ? 'drop-shadow(0 0 4px rgba(15, 23, 42, 0.15))'
           : 'none',
         transition: 'filter 0.3s ease',
       }}
       aria-label="ПАРАЛЛАКС — на главную"
     >
-      {letters.map(({ char, glitching, color, shift }, i) => (
+      {letters.map(({ char, glitching, color, shift }, i) => {
+        const isFirst = i === 0
+        const letterSize = isFirst ? sz.fontSize * sz.firstLetterScale : sz.fontSize
+
+        return (
         <span
           key={i}
           style={{
-            fontSize: sz.fontSize,
+            fontSize: letterSize,
             display: 'inline-block',
-            // фиксированная ширина — нет прыжков при смене символа
-            minWidth: `${sz.fontSize * 0.66}px`,
+            minWidth: `${letterSize * 0.66}px`,
             textAlign: 'center',
-            color: glitching ? color : '#f8fafc',
-            // хроматическая аберрация на глитч-буквах
+            color: glitching ? color : DEFAULT_COLOR,
             textShadow: glitching
               ? `2px 0 #ff0040, -2px 0 #00a8ff, 0 0 12px ${color}cc`
               : 'none',
             transform: glitching ? `translateX(${shift}px)` : 'translateX(0)',
             transition: glitching ? 'none' : 'color 0.15s ease, text-shadow 0.15s ease, transform 0.1s ease',
+            alignSelf: 'auto',
           }}
         >
           {char}
         </span>
-      ))}
+        )
+      })}
     </button>
   )
 }

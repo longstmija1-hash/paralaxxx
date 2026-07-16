@@ -11,6 +11,27 @@ export default {
           red: '#ff453a',
           yellow: '#ffd60a',
         },
+        surface: {
+          DEFAULT: '#ffffff',
+          muted: '#f8fafc',
+          subtle: '#f1f5f9',
+          border: '#e2e8f0',
+        },
+        ink: {
+          DEFAULT: '#0f172a',
+          secondary: '#475569',
+          muted: '#64748b',
+        },
+        ums: {
+          bg: '#f7f7f7',
+          card: '#ffffff',
+          border: '#ececec',
+          text: '#111111',
+          muted: '#6b7280',
+          accent: '#7c91f9',
+          tint: '#eef1ff',
+          coral: '#ff6b5b',
+        },
         dark: {
           950: '#020204',
           900: '#050508',
@@ -22,12 +43,15 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['var(--font-manrope)', 'Manrope', 'system-ui', 'sans-serif'],
+        display: ['var(--font-unbounded)', 'Unbounded', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-manrope)', 'Manrope', 'monospace'],
       },
       animation: {
         'pulse-neon': 'pulse-neon 2s ease-in-out infinite',
         'float': 'float 3s ease-in-out infinite',
+        'float-soft': 'float-soft 5s ease-in-out infinite',
+        'fade-up': 'fade-up 0.6s ease-out both',
         'glitch': 'glitch 0.5s linear',
         'heart-break': 'heart-break 0.6s ease-out forwards',
         'coin-pop': 'coin-pop 0.4s ease-out forwards',
@@ -42,6 +66,14 @@ export default {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        'float-soft': {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-6px)' },
+        },
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         glitch: {
           '0%': { transform: 'translate(0)' },

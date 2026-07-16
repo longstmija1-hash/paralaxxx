@@ -1,18 +1,33 @@
 import '../index.css';
+import { Manrope, Unbounded } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
 import CookieConsent from '../components/CookieConsent';
 import AnnouncementMarquee from '../components/AnnouncementMarquee';
 
+const manrope = Manrope({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-manrope',
+  display: 'swap',
+});
+
+const unbounded = Unbounded({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-unbounded',
+  display: 'swap',
+  weight: ['500', '600', '700', '800', '900'],
+});
+
 export const metadata = {
-  title: 'ПАРАЛЛАКС — Образовательная экосистема',
-  description: 'Образовательная экосистема (школа и IT в одном месте).',
+  title: 'ПАРАЛЛАКС — Подготовка к ЕГЭ, ОГЭ и IT-курсы',
+  description:
+    'Школьные предметы, подготовка к экзаменам и IT-программы. Кураторы, разбор ДЗ и понятный прогресс.',
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ru">
+    <html lang="ru" className={`${manrope.variable} ${unbounded.variable}`}>
       <head>
         <Script id="metrika-counter" strategy="afterInteractive">
           {`
@@ -31,7 +46,7 @@ export default function RootLayout({ children }) {
           `}
         </Script>
       </head>
-      <body>
+      <body className={`${manrope.className} antialiased`}>
         <AnnouncementMarquee />
         {children}
         <CookieConsent />
@@ -40,13 +55,13 @@ export default function RootLayout({ children }) {
           position="top-right"
           toastOptions={{
             style: {
-              background: '#12121e',
-              color: '#e0e0ff',
-              border: '1px solid rgba(0,255,135,0.2)',
-              fontFamily: 'Inter, sans-serif',
+              background: '#ffffff',
+              color: '#111111',
+              border: '1px solid #ececec',
+              fontFamily: 'var(--font-manrope), Manrope, system-ui, sans-serif',
             },
-            success: { iconTheme: { primary: '#00ff87', secondary: '#050508' } },
-            error: { iconTheme: { primary: '#ff453a', secondary: '#050508' } },
+            success: { iconTheme: { primary: '#111111', secondary: '#ffffff' } },
+            error: { iconTheme: { primary: '#ef4444', secondary: '#ffffff' } },
           }}
         />
       </body>

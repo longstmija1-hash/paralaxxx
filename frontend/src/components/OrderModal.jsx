@@ -1,326 +1,103 @@
-import { useState, useEffect, useCallback } from 'react'
+'use client'
 
-import { toast } from 'react-hot-toast'
-
-const PROGRAMS = [
-  {
-    group: 'Школьные предметы',
-    options: ['Математика', 'Русский язык', 'Физика', 'Химия', 'Биология'],
-  },
-  {
-    group: 'Экзамены',
-    options: ['ОГЭ Информатика', 'ЕГЭ Информатика', 'ЕГЭ Математика'],
-  },
-  {
-    group: 'IT-Навыки',
-    options: ['Scratch', 'Roblox', 'Python', 'Web-разработка'],
-  },
-]
-
-const TARIFF_LABELS = {
-  listener: 'Слушатель',
-  student: 'Студент',
-  webinar: 'Вебинары',
-}
-
-const EMPTY_FORM = {
-  parentName: '',
-  childName: '',
-  childAge: '',
-  program: '',
-  phone: '',
-  social: '',
-}
-
-function formatPhone(raw) {
-  let digits = raw.replace(/\D/g, '')
-  if (digits.startsWith('8')) digits = '7' + digits.slice(1)
-  if (!digits.startsWith('7')) digits = '7' + digits
-  digits = digits.slice(0, 11)
-
-  let out = '+7'
-  if (digits.length > 1) out += ' (' + digits.slice(1, 4)
-  if (digits.length >= 4) out += ') ' + digits.slice(4, 7)
-  if (digits.length >= 7) out += '-' + digits.slice(7, 9)
-  if (digits.length >= 9) out += '-' + digits.slice(9, 11)
-  return out
-}
+import { useEffect, useCallback } from 'react'
+import { X } from 'lucide-react'
+import LeadForm from './landing/LeadForm'
+import { TARIFF_LABELS } from '../data/landingContent'
 
 export default function OrderModal({ isOpen, onClose, initialData = {} }) {
-  const [form, setForm] = useState(EMPTY_FORM)
-  const [errors, setErrors] = useState({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  // Prefill program/tariff when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      setIsSubmitting(false)
-      setErrors({})
-      setForm({
-        ...EMPTY_FORM,
-        program: initialData.selectedProgram || '',
-      })
-    }
-  }, [isOpen, initialData.selectedProgram])
-
-  // Close on Escape
   const handleKey = useCallback(
-    (e) => { if (e.key === 'Escape') onClose() },
+    (e) => {
+      if (e.key === 'Escape') onClose()
+    },
     [onClose],
   )
+
   useEffect(() => {
     if (isOpen) window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
   }, [isOpen, handleKey])
 
-  // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [isOpen])
-
-  const set = (field) => (e) =>
-    setForm((f) => ({ ...f, [field]: e.target.value }))
-
-  const handlePhone = (e) => {
-    const formatted = formatPhone(e.target.value)
-    setForm((f) => ({ ...f, phone: formatted }))
-  }
-
-  const validate = () => {
-    const errs = {}
-    if (!form.parentName.trim()) errs.parentName = 'Обязательное поле'
-    if (!form.childName.trim()) errs.childName = 'Обязательное поле'
-    if (!form.childAge || isNaN(form.childAge) || +form.childAge < 5 || +form.childAge > 25)
-      errs.childAge = 'Введите возраст (5–25)'
-    if (!form.program) errs.program = 'Выберите программу'
-    const digits = form.phone.replace(/\D/g, '')
-    if (digits.length < 11) errs.phone = 'Введите полный номер'
-    return errs
-  }
 
   const tariffLabel = initialData.selectedTariff
     ? TARIFF_LABELS[initialData.selectedTariff] ?? initialData.selectedTariff
     : null
 
-  const sendToBackend = async (formData) => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
-
-    const response = await fetch(`${apiUrl}/api/leads`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        parentName: formData.parentName,
-        childName: formData.childName,
-        childAge: Number(formData.childAge),
-        program: formData.program,
-        tariff: formData.tariff || null,
-        phone: formData.phone,
-        social: formData.social || null,
-      }),
-    })
-
-    if (!response.ok) {
-      const err = await response.json().catch(() => ({}))
-      throw new Error(err?.detail || `Server error: ${response.status}`)
-    }
-
-    return response.json()
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const errs = validate()
-    if (Object.keys(errs).length) { setErrors(errs); return }
-
-    setIsSubmitting(true)
-    try {
-      await sendToBackend({ ...form, tariff: tariffLabel })
-      toast.success('SYSTEM: DATA TRANSMITTED SUCCESSFULLY.', {
-        style: { border: '1px solid #00ff87', color: '#00ff87', background: '#050508' },
-        icon: null
-      })
-      onClose()
-    } catch (error) {
-      console.error(error)
-      toast.error('ERROR: DATA UPLINK FAILED.', {
-        style: { border: '1px solid #ff453a', color: '#ff453a', background: '#050508' },
-        icon: null
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+  if (!isOpen) return null
 
   return (
-    <>
-      {isOpen && (
-        <div
-          key="overlay"
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+    <div className="fixed inset-0 z-[200] flex items-end md:items-center justify-center md:p-4">
+      <div
+        className="absolute inset-0 bg-black/45 backdrop-blur-sm cursor-pointer"
+        onClick={onClose}
+        aria-hidden
+      />
+
+      <div
+        className="relative w-full md:max-w-4xl max-h-[92dvh] overflow-y-auto rounded-t-[28px] md:rounded-[28px] bg-white z-10 shadow-[0_8px_40px_rgba(0,0,0,0.16)] pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="order-modal-title"
+      >
+        <div className="md:hidden flex justify-center pt-3 pb-1">
+          <span className="w-10 h-1 rounded-full bg-[#d1d5db]" aria-hidden />
+        </div>
+
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 md:top-4 md:right-4 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-white/90 border border-ums-border text-ums-muted hover:text-[#111] transition-colors duration-200 cursor-pointer"
+          aria-label="Закрыть"
+          type="button"
         >
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/80 backdrop-blur-md"
-            onClick={onClose}
-          />
+          <X className="w-5 h-5" />
+        </button>
 
-          {/* Modal window */}
-          <div
-            key="window"
-            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-dark-900 border-2 border-neon-purple z-10"
-            style={{ boxShadow: '0 0 40px rgba(191,90,242,0.4), 0 0 80px rgba(191,90,242,0.15)' }}
-          >
-            {/* Top accent line */}
-            <div className="h-px bg-gradient-to-r from-transparent via-neon-purple to-transparent" />
+        <div id="order-modal-title" className="sr-only">
+          Записаться на обучение{tariffLabel ? ` — тариф ${tariffLabel}` : ''}
+        </div>
 
-            <div className="p-6 sm:p-8">
-              {/* Close button */}
-              <button
-                onClick={onClose}
-                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg border border-dark-500 text-gray-500 hover:text-white hover:border-neon-purple/50 transition-all duration-200"
-                aria-label="Закрыть"
-              >
-                ✕
-              </button>
+        <div className="grid md:grid-cols-2 md:min-h-[480px]">
+          <div className="p-5 sm:p-8 md:p-10 flex flex-col justify-center">
+            <LeadForm
+              variant="modal"
+              initialData={initialData}
+              onSuccess={onClose}
+              id="order-modal-form"
+              submitLabel="Узнать о курсе"
+            />
+          </div>
 
-              <div
-                key="form"
-              >
-                {/* Header */}
-                <div className="mb-6">
-                  <h2 className="text-2xl font-black text-white">
-                    Записаться на обучение
-                  </h2>
-                  {tariffLabel && (
-                    <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-purple/10 border border-neon-purple/30 text-neon-purple text-xs font-mono">
-                      <span className="w-1.5 h-1.5 rounded-full bg-neon-purple" />
-                      Тариф: {tariffLabel}
-                    </div>
-                  )}
-                </div>
-
-                <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                  {/* Parent Name */}
-                  <Field label="ФИО родителя" error={errors.parentName} required>
-                    <input
-                      id="parentName"
-                      type="text"
-                      placeholder="Иванова Мария Ивановна"
-                      className={`cyber-input ${errors.parentName ? 'border-red-500/60' : ''}`}
-                      value={form.parentName}
-                      onChange={set('parentName')}
-                      autoComplete="name"
-                    />
-                  </Field>
-
-                  {/* Child Name */}
-                  <Field label="ФИО ребёнка" error={errors.childName} required>
-                    <input
-                      id="childName"
-                      type="text"
-                      placeholder="Иванов Алексей"
-                      className={`cyber-input ${errors.childName ? 'border-red-500/60' : ''}`}
-                      value={form.childName}
-                      onChange={set('childName')}
-                    />
-                  </Field>
-
-                  {/* Age */}
-                  <Field label="Возраст ребёнка" error={errors.childAge} required>
-                    <input
-                      id="childAge"
-                      type="number"
-                      placeholder="14"
-                      min={5}
-                      max={25}
-                      className={`cyber-input ${errors.childAge ? 'border-red-500/60' : ''}`}
-                      value={form.childAge}
-                      onChange={set('childAge')}
-                    />
-                  </Field>
-
-                  {/* Program */}
-                  <Field label="Желаемая программа" error={errors.program} required>
-                    <select
-                      id="program"
-                      className={`cyber-input appearance-none cursor-pointer ${errors.program ? 'border-red-500/60' : ''}`}
-                      value={form.program}
-                      onChange={set('program')}
-                      style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300ff87' d='M6 8L1 3h10z'/%3E%3C/svg%3E\")", backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center' }}
-                    >
-                      <option value="" disabled>Выберите программу...</option>
-                      {PROGRAMS.map((g) => (
-                        <optgroup key={g.group} label={g.group}>
-                          {g.options.map((o) => (
-                            <option key={o} value={o}>{o}</option>
-                          ))}
-                        </optgroup>
-                      ))}
-                    </select>
-                  </Field>
-
-                  {/* Phone */}
-                  <Field label="Номер телефона" error={errors.phone} required>
-                    <input
-                      id="phone"
-                      type="tel"
-                      placeholder="+7 (___) ___-__-__"
-                      className={`cyber-input ${errors.phone ? 'border-red-500/60' : ''}`}
-                      value={form.phone}
-                      onChange={handlePhone}
-                      inputMode="tel"
-                    />
-                  </Field>
-
-                  {/* Social */}
-                  <Field label="Соц. сеть / мессенджер" hint="Необязательно">
-                    <input
-                      id="social"
-                      type="text"
-                      placeholder="@username или ссылка на профиль"
-                      className="cyber-input"
-                      value={form.social}
-                      onChange={set('social')}
-                    />
-                  </Field>
-
-                  {/* Submit */}
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className={`btn-neon w-full py-4 text-base font-bold tracking-wide ${isSubmitting ? 'opacity-70 pointer-events-none' : ''}`}
-                    >
-                      {isSubmitting ? '📡 CONNECTING TO SERVER....' : '🚀 Отправить заявку'}
-                    </button>
-                    <p className="text-center text-gray-600 text-xs mt-3">
-                      Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
-                    </p>
-                  </div>
-                </form>
+          <div className="relative hidden md:flex flex-col justify-end overflow-hidden rounded-r-[28px] bg-ums-accent p-8">
+            <div
+              className="absolute inset-0 opacity-30"
+              style={{
+                background:
+                  'radial-gradient(circle at 70% 30%, rgba(255,255,255,0.45) 0%, transparent 55%)',
+              }}
+            />
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full bg-white/20 text-white text-sm font-medium backdrop-blur-sm">
+                Предзапись
+              </div>
+              <p className="font-display text-2xl font-bold text-white leading-snug mb-3">
+                Начни подготовку раньше — войди в учебный год спокойно
+              </p>
+              <p className="text-white/80 text-sm leading-relaxed">
+                Кураторы, разбор ДЗ и понятный прогресс по каждой теме
+              </p>
+              <div className="mt-8 h-40 rounded-2xl bg-white/15 border border-white/25 flex items-center justify-center text-white/70 text-sm">
+                Фото учеников
               </div>
             </div>
           </div>
         </div>
-      )}
-    </>
-  )
-}
-
-/* ── Helper: Form Field wrapper ────────────────────────────── */
-function Field({ label, error, hint, required, children }) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-mono text-gray-400 uppercase tracking-widest flex items-center gap-2">
-        {label}
-        {required && <span className="text-neon-purple">*</span>}
-        {hint && <span className="text-gray-600 normal-case tracking-normal">{hint}</span>}
-      </label>
-      {children}
-      {error && (
-        <span className="text-red-400 text-xs font-mono">⚠ {error}</span>
-      )}
+      </div>
     </div>
   )
 }
