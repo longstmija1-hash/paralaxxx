@@ -6,7 +6,7 @@ import SectionShell from './ui/SectionShell'
 import UmsCard from './ui/UmsCard'
 import UmsButton from './ui/UmsButton'
 import UmsBadge from './ui/UmsBadge'
-import { COUNTDOWN_TARGET } from '../../data/landingContent'
+import { COUNTDOWN_TARGET, COUNTDOWN_COPY } from '../../data/landingContent'
 
 function getTimeLeft(target) {
   const diff = new Date(target).getTime() - Date.now()
@@ -50,15 +50,13 @@ export default function CountdownSection({ onOpenModal }) {
     <SectionShell variant="tint">
       <UmsCard padding="lg" className="max-w-3xl mx-auto text-center" hover={false}>
         <div className="flex justify-center mb-6">
-          <UmsBadge variant="accent">Акция</UmsBadge>
+          <UmsBadge variant="accent">{COUNTDOWN_COPY.badge}</UmsBadge>
         </div>
 
         <h2 className="section-heading">
-          {time.expired ? 'Успей записаться по выгодной цене' : 'До повышения цены осталось'}
+          {time.expired ? COUNTDOWN_COPY.titleExpired : COUNTDOWN_COPY.title}
         </h2>
-        <p className="section-sub mx-auto mb-10">
-          С 1 августа стоимость вырастет. Запишись сейчас и получи бесплатную консультацию по программе.
-        </p>
+        <p className="section-sub mx-auto mb-10">{COUNTDOWN_COPY.body}</p>
 
         {!time.expired && (
           <div className="flex justify-center gap-3 sm:gap-4 mb-10 flex-wrap">
@@ -71,11 +69,11 @@ export default function CountdownSection({ onOpenModal }) {
 
         <div className="flex items-center justify-center gap-2 text-ums-muted text-sm mb-6">
           <Clock className="w-4 h-4 text-ums-accent" aria-hidden />
-          <span>2 месяца обучения в подарок при ранней записи</span>
+          <span>{COUNTDOWN_COPY.bonus}</span>
         </div>
 
         <UmsButton onClick={() => onOpenModal?.({})} className="px-8">
-          Записаться сейчас
+          {COUNTDOWN_COPY.cta}
         </UmsButton>
       </UmsCard>
     </SectionShell>

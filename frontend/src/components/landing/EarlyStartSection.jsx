@@ -4,7 +4,11 @@ import { CalendarClock, Sun, TrendingUp } from 'lucide-react'
 import SectionShell from './ui/SectionShell'
 import UmsCard from './ui/UmsCard'
 import RevealOnScroll from './ui/RevealOnScroll'
-import { EARLY_START_BENEFITS } from '../../data/landingContent'
+import {
+  EARLY_START_BENEFITS,
+  EARLY_START_HEADING,
+  EARLY_START_SUB,
+} from '../../data/landingContent'
 
 const ICONS = [CalendarClock, Sun, TrendingUp]
 
@@ -13,12 +17,8 @@ export default function EarlyStartSection() {
     <SectionShell variant="white">
       <RevealOnScroll>
         <div className="text-center mb-16">
-          <h2 className="section-heading">
-            Чем раньше начнёшь — тем спокойнее пройдёт учебный год
-          </h2>
-          <p className="section-sub mx-auto">
-            Летняя подготовка — возможность плавно войти в обучение без перегруза
-          </p>
+          <h2 className="section-heading">{EARLY_START_HEADING}</h2>
+          <p className="section-sub mx-auto">{EARLY_START_SUB}</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">

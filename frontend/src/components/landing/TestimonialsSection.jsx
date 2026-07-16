@@ -6,7 +6,7 @@ import SectionShell from './ui/SectionShell'
 import UmsCard from './ui/UmsCard'
 import UmsButton from './ui/UmsButton'
 import RevealOnScroll from './ui/RevealOnScroll'
-import { TESTIMONIALS } from '../../data/landingContent'
+import { TESTIMONIALS, TESTIMONIALS_HEADING, TESTIMONIALS_SUB } from '../../data/landingContent'
 
 const AVATAR_COLORS = ['#7c91f9', '#a78bfa', '#64748b', '#94a3b8', '#6366f1', '#0ea5e9']
 
@@ -30,8 +30,8 @@ export default function TestimonialsSection({ onOpenModal }) {
     <SectionShell id="reviews" variant="tint">
       <RevealOnScroll>
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="section-heading">Результаты и истории учеников</h2>
-          <p className="section-sub mx-auto text-base sm:text-lg">Отзывы наших учеников и родителей</p>
+          <h2 className="section-heading">{TESTIMONIALS_HEADING}</h2>
+          <p className="section-sub mx-auto text-base sm:text-lg">{TESTIMONIALS_SUB}</p>
         </div>
 
         <UmsCard padding="sm" className="max-w-4xl mx-auto relative sm:!p-8" hover={false}>

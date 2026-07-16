@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 import SectionShell from './ui/SectionShell'
 import UmsCard from './ui/UmsCard'
-import { PLATFORM_FEATURES } from '../../data/landingContent'
+import { PLATFORM_FEATURES, PLATFORM_HEADING, PLATFORM_SUB } from '../../data/landingContent'
 
 const ICONS = [BookOpen, Sparkles, ClipboardCheck, FileQuestion, PlayCircle, LineChart]
 
@@ -17,10 +17,8 @@ export default function PlatformFeaturesSection() {
   return (
     <SectionShell id="how" variant="tint">
       <div className="text-center mb-16">
-        <h2 className="section-heading">Всё, что нужно для подготовки, на одной платформе</h2>
-        <p className="section-sub mx-auto">
-          Теория, практика, пробники и прогресс — без хаоса и лишних покупок
-        </p>
+        <h2 className="section-heading">{PLATFORM_HEADING}</h2>
+        <p className="section-sub mx-auto">{PLATFORM_SUB}</p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

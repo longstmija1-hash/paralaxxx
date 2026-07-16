@@ -1,16 +1,18 @@
 import SectionShell from './ui/SectionShell'
 import UmsCard from './ui/UmsCard'
 import MediaPlaceholder from './ui/MediaPlaceholder'
-import { SUPPORT_ROLES } from '../../data/landingContent'
+import {
+  SUPPORT_ROLES,
+  SUPPORT_HEADING,
+  SUPPORT_SUB,
+} from '../../data/landingContent'
 
 export default function SupportSection() {
   return (
     <SectionShell id="support" variant="white">
       <div className="text-center mb-16">
-        <h2 className="section-heading">Ты не останешься один на один с подготовкой</h2>
-        <p className="section-sub mx-auto">
-          Команда поддержки помогает на каждом этапе — от расписания до разбора сложных тем
-        </p>
+        <h2 className="section-heading">{SUPPORT_HEADING}</h2>
+        <p className="section-sub mx-auto">{SUPPORT_SUB}</p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

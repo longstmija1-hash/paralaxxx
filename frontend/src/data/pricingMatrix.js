@@ -1,14 +1,19 @@
-/** Матрица тарифов: трек → класс → тарифы */
+/** Матрица тарифов (Тандем): трек времени → класс → фокус → Стандарт / Про / Премиум
+ *
+ * Стандарт — один трек (фундамент ИЛИ IT)
+ * Про — комплекс школа + IT
+ * Премиум — комплекс + наставничество основателей
+ */
 
 export const PLAN_TRACKS = [
   {
     id: 'university',
-    label: 'Обучение со следующего класса до поступления в вуз под ключ',
+    label: 'Обучение со следующего класса до поступления в вуз',
     shortLabel: 'До вуза',
   },
   {
     id: 'year',
-    label: 'Обучение на весь следующий год под ключ',
+    label: 'Обучение на весь следующий учебный год',
     shortLabel: 'На год',
   },
 ]
@@ -18,191 +23,101 @@ export const GRADES_BY_TRACK = {
   year: [7, 8, 9, 10, 11],
 }
 
-const MIDDLE_FEATURES = {
-  standard: [
-    'Прохождение школьной программы по выбранным предметам',
-    'Вебинары с разбором тем',
-    'Конспекты и дополнительные материалы',
-    'Домашние задания после занятий',
-    'Куратор и чат поддержки',
-    'Тренажёр для закрепления тем',
-    'Ежемесячная статистика для родителя',
-  ],
-  proExtra: [
-    'Помощь с домашними заданиями',
-    'Шпаргалки по ключевым темам',
-    'Мини-тесты после тем',
-    'Индивидуальный созвон с куратором (1 раз в месяц)',
-    'Групповые консультации с преподавателями',
-  ],
-  premiumExtra: [
-    'Контрольные и проверочные работы',
-    'Индивидуальные ДЗ от куратора',
-    '2 индивидуальных созвона с куратором в месяц',
-    'Ускоренная проверка работ',
-  ],
-}
+export const FOCUS_OPTIONS = [
+  { id: 'focusSchool', label: 'Фундамент', shortLabel: 'Школа' },
+  { id: 'focusIt', label: 'IT-трек', shortLabel: 'IT' },
+  { id: 'focusComplex', label: 'Школа + IT', shortLabel: 'Комплекс' },
+]
 
-const EXAM_FEATURES = {
-  standard: [
-    'Все необходимые учебные материалы и занятия',
-    'Диагностика знаний на старте',
-    'Индивидуальная траектория обучения',
-    'Ответы на вопросы в течение 5 минут',
-    'Домашние задания — до 48 часов',
-    'Пробные экзамены — до 72 часов',
-  ],
-  proExtra: [
-    'Личное сопровождение',
-    'Помощь со школьными домашними заданиями',
-    'Несколько ИДЗ от куратора в месяц',
-    'Индивидуальные зачёты — 30 мин/мес по предмету',
-    'Куратор-предметник с проверкой ДЗ',
-  ],
-  premiumExtra: [
-    'Личный куратор по нужному предмету',
-    'Безлимитные ИДЗ от куратора',
-    'Индивидуальные уроки — 60 мин/мес по предмету',
-    'Домашние задания — до 24 часов',
-    'Пробные экзамены — до 48 часов',
-  ],
-}
+const STANDARD_FEATURES = [
+  'Один трек на выбор: фундамент или IT',
+  'Занятия и материалы по выбранному направлению',
+  'Домашние задания с проверкой куратора',
+  'Система жизней и наград',
+  'Ответы в чате в течение рабочего дня',
+  'Ежемесячный отчёт для родителя',
+]
 
-function middlePrices(base) {
-  return {
-    subjects14: {
-      current: Math.round(base * 0.7),
-      original: Math.round(base * 0.82),
-      discount: 15,
-    },
-    subjects5: {
-      current: Math.round(base * 0.85),
-      original: Math.round(base),
-      discount: 15,
-    },
+const PRO_FEATURES = [
+  'Комплекс: школьный фундамент + IT-трек',
+  'Всё из тарифа «Стандарт» по обоим направлениям',
+  'Приоритетная проверка ДЗ',
+  'Согласованная нагрузка без выгорания',
+  'Мини-созвон с куратором 1 раз в месяц',
+  'Отчёты по школе и IT в одном окне',
+]
+
+const PREMIUM_FEATURES = [
+  'Всё из тарифа «Про»',
+  'Личные консультации с основателями',
+  'Наставничество по стратегии на год',
+  'Ускоренная проверка работ',
+  'Индивидуальные ДЗ под слабые места',
+  'Приоритет в расписании и слотах',
+]
+
+function tandemPrices(base) {
+  const school = {
+    current: Math.round(base * 0.72),
+    original: Math.round(base * 0.85),
+    discount: 15,
   }
-}
-
-function examPrices(base) {
-  return {
-    subjects1: {
-      current: Math.round(base * 0.9),
-      original: Math.round(base),
-      discount: 10,
-    },
-    subjects4: {
-      current: Math.round(base * 2.2),
-      original: Math.round(base * 4.4),
-      discount: 50,
-    },
+  const it = {
+    current: Math.round(base * 0.68),
+    original: Math.round(base * 0.8),
+    discount: 15,
   }
+  const complex = {
+    current: Math.round(base * 1.05),
+    original: Math.round(base * 1.25),
+    discount: 16,
+  }
+  return { school, it, complex }
 }
 
-function buildMiddleTiers(base) {
-  const prices = middlePrices(base)
+function buildTandemTiers(base) {
+  const p = tandemPrices(base)
   return [
     {
       id: 'standard',
       name: 'Стандарт',
       badge: null,
-      tagline: 'База для стабильной учёбы и понимания тем',
-      prices,
-      features: MIDDLE_FEATURES.standard,
+      tagline: 'Одно направление: фундамент или IT. Базовая поддержка без лишнего.',
+      prices: {
+        focusSchool: p.school,
+        focusIt: p.it,
+      },
+      features: STANDARD_FEATURES,
       includesTier: null,
     },
     {
       id: 'pro',
       name: 'Про',
       badge: 'Популярный',
-      tagline: 'Контроль прогресса и усиленная практика',
+      tagline: 'Комплекс школа + IT. Закрываете учёбу и навыки на одной платформе.',
       prices: {
-        subjects14: {
-          current: prices.subjects14.current + 7600,
-          original: prices.subjects14.original + 8900,
-          discount: 15,
-        },
-        subjects5: {
-          current: prices.subjects5.current + 9600,
-          original: prices.subjects5.original + 11200,
-          discount: 15,
+        focusComplex: {
+          current: p.complex.current + 8200,
+          original: p.complex.original + 11000,
+          discount: 18,
         },
       },
-      features: MIDDLE_FEATURES.proExtra,
-      includesTier: 'Стандарт',
-    },
-    {
-      id: 'premium',
-      name: 'Премиум',
-      badge: 'Выгодный',
-      tagline: 'Максимум внимания и персонализации',
-      prices: {
-        subjects14: {
-          current: prices.subjects14.current + 14500,
-          original: prices.subjects14.original + 17000,
-          discount: 15,
-        },
-        subjects5: {
-          current: prices.subjects5.current + 18600,
-          original: prices.subjects5.original + 21900,
-          discount: 15,
-        },
-      },
-      features: MIDDLE_FEATURES.premiumExtra,
-      includesTier: 'Про',
-    },
-  ]
-}
-
-function buildExamTiers(base) {
-  const prices = examPrices(base)
-  return [
-    {
-      id: 'standard',
-      name: 'Стандарт',
-      badge: null,
-      tagline: 'Базовая поддержка на курсе',
-      prices,
-      features: EXAM_FEATURES.standard,
+      features: PRO_FEATURES,
       includesTier: null,
     },
     {
-      id: 'pro',
-      name: 'Про',
-      badge: 'Популярный',
-      tagline: 'Больше поддержки и персональной работы',
-      prices: {
-        subjects1: {
-          current: prices.subjects1.current + 10500,
-          original: prices.subjects1.original + 11700,
-          discount: 10,
-        },
-        subjects4: {
-          current: prices.subjects4.current + 33000,
-          original: prices.subjects4.original + 62000,
-          discount: 47,
-        },
-      },
-      features: EXAM_FEATURES.proExtra,
-      includesTier: 'Стандарт',
-    },
-    {
       id: 'premium',
       name: 'Премиум',
-      badge: 'Выгодный',
-      tagline: 'Максимальная поддержка и контроль за подготовкой',
+      badge: 'С основателями',
+      tagline: 'Максимальное погружение и наставничество Николая К. и Данила Ф.',
       prices: {
-        subjects1: {
-          current: prices.subjects1.current + 27500,
-          original: prices.subjects1.original + 30600,
-          discount: 10,
-        },
-        subjects4: {
-          current: prices.subjects4.current + 35000,
-          original: prices.subjects4.original + 83000,
-          discount: 58,
+        focusComplex: {
+          current: p.complex.current + 16800,
+          original: p.complex.original + 21000,
+          discount: 18,
         },
       },
-      features: EXAM_FEATURES.premiumExtra,
+      features: PREMIUM_FEATURES,
       includesTier: 'Про',
     },
   ]
@@ -210,46 +125,42 @@ function buildExamTiers(base) {
 
 const PACKAGE_BY_GRADE = {
   7: {
-    mode: 'middle',
     items: [
       'Летняя подготовка перед 7 классом',
-      'Годовой курс 7 класса',
-      'Курс подготовки к ВПР',
+      'Годовой фундамент 7 класса',
+      'Доступ к IT-треку по выбранному тарифу',
     ],
     base: 35120,
   },
   8: {
-    mode: 'middle',
     items: [
       'Летняя подготовка перед 8 классом',
-      'Годовой курс 8 класса',
-      'Курс подготовки к ВПР',
+      'Годовой фундамент 8 класса',
+      'Доступ к IT-треку по выбранному тарифу',
     ],
     base: 38000,
   },
   9: {
-    mode: 'exam',
     items: [
       'Летняя подготовка перед 9 классом',
-      'Годовой курс 9 класса',
-      'Предбанник перед ОГЭ',
+      'Год с упором на ОГЭ (математика, русский, физика)',
+      'IT-проекты без перегруза перед экзаменом',
     ],
     base: 50355,
   },
   10: {
-    mode: 'exam',
     items: [
       'Летняя подготовка перед 10 классом',
-      'Годовой курс 10 класса',
+      'Годовой фундамент + старт профиля ЕГЭ',
+      'IT-трек: Frontend или системная аналитика',
     ],
     base: 47705,
   },
   11: {
-    mode: 'exam',
     items: [
       'Летняя подготовка перед 11 классом',
-      'Годовой курс 11 класса',
-      'Предбанник перед ЕГЭ',
+      'Предбанник ЕГЭ по ключевым предметам',
+      'IT-портфолио к поступлению',
     ],
     base: 46080,
   },
@@ -259,26 +170,16 @@ export function getGradeConfig(grade) {
   const pkg = PACKAGE_BY_GRADE[grade]
   if (!pkg) return null
 
-  const isMiddle = pkg.mode === 'middle'
   return {
     grade,
-    mode: pkg.mode,
     packageItems: pkg.items,
-    subjectOptions: isMiddle
-      ? [
-          { id: 'subjects14', label: '1–4 предмета' },
-          { id: 'subjects5', label: '5 предметов' },
-        ]
-      : [
-          { id: 'subjects1', label: '1 предмет' },
-          { id: 'subjects4', label: '4 предмета' },
-        ],
-    tiers: isMiddle ? buildMiddleTiers(pkg.base) : buildExamTiers(pkg.base),
+    subjectOptions: FOCUS_OPTIONS,
+    tiers: buildTandemTiers(pkg.base),
   }
 }
 
 export const TARIFF_MODAL_MAP = {
-  standard: 'student',
-  pro: 'student',
-  premium: 'student',
+  standard: 'standard',
+  pro: 'pro',
+  premium: 'premium',
 }

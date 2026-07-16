@@ -4,7 +4,12 @@ import { Heart, Skull } from 'lucide-react'
 import SectionShell from './ui/SectionShell'
 import UmsCard from './ui/UmsCard'
 import MediaPlaceholder from './ui/MediaPlaceholder'
-import { LIVES_ROWS } from '../../data/landingContent'
+import {
+  LIVES_ROWS,
+  LIVES_HEADING,
+  LIVES_BODY,
+  LIVES_FOOTNOTE,
+} from '../../data/landingContent'
 
 function LivesIcon({ count }) {
   if (count === 0) return <Skull className="w-6 h-6 text-[#111]" aria-hidden />
@@ -26,11 +31,8 @@ export default function LivesSystemSection() {
     <SectionShell id="lives" variant="tint">
       <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
         <UmsCard padding="lg">
-          <h2 className="section-heading text-2xl md:text-3xl mb-4">Система 3-х жизней</h2>
-          <p className="text-ums-muted mb-6">
-            Каждый месяц ты получаешь <span className="text-[#111] font-semibold">3 жизни</span>.
-            Не сдал домашку до дедлайна — сгорает 1 жизнь. Это мотивирует заниматься регулярно.
-          </p>
+          <h2 className="section-heading text-2xl md:text-3xl mb-4">{LIVES_HEADING}</h2>
+          <p className="text-ums-muted mb-6">{LIVES_BODY}</p>
           <div className="space-y-3">
             {LIVES_ROWS.map((row) => (
               <div
@@ -49,10 +51,7 @@ export default function LivesSystemSection() {
 
         <div>
           <MediaPlaceholder label="Скриншот системы жизней" aspect="16/10" />
-          <p className="text-ums-muted text-sm mt-6">
-            Это <span className="text-[#111] font-medium">мотивирует</span> детей и радует родителей — ребёнок
-            делает всё сам.
-          </p>
+          <p className="text-ums-muted text-sm mt-6">{LIVES_FOOTNOTE}</p>
         </div>
       </div>
     </SectionShell>

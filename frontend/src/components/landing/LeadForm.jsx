@@ -4,11 +4,10 @@ import { useState, useEffect } from 'react'
 import { Loader2 } from 'lucide-react'
 import { useLeadSubmit } from '../../hooks/useLeadSubmit'
 import { EMPTY_FORM, formatPhone } from '../../lib/leadFormUtils'
-import { TARIFF_LABELS, HERO_STATS } from '../../data/landingContent'
+import { TARIFF_LABELS, SOCIAL_PROOF_LINE } from '../../data/landingContent'
 
 const AVATAR_COLORS = ['#7c91f9', '#111111', '#94a3b8', '#a78bfa', '#64748b']
 const AVATAR_INITIALS = ['А', 'М', 'К', 'Д', 'С']
-const STUDENTS_STAT = HERO_STATS.find((s) => s.label.includes('ученик'))?.value || '100+'
 
 function SoftInput({ id, error, className = '', ...props }) {
   return (
@@ -31,7 +30,7 @@ function SocialProof() {
   return (
     <div className="mt-6 rounded-2xl bg-ums-coral text-white px-5 py-4">
       <p className="text-sm font-semibold leading-snug mb-3 font-display">
-        Уже {STUDENTS_STAT} учеников с нами — оставь заявку сегодня
+        {SOCIAL_PROOF_LINE}
       </p>
       <div className="flex items-center">
         {AVATAR_INITIALS.map((letter, i) => (

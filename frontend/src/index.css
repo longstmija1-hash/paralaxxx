@@ -158,7 +158,8 @@
   }
 
   .ums-icon-chip {
-    @apply w-11 h-11 rounded-2xl bg-ums-tint border border-[#dce3ff] flex items-center justify-center shrink-0;
+    @apply w-11 h-11 rounded-2xl border border-[#dce3ff] flex items-center justify-center shrink-0;
+    background-color: #eef1ff;
   }
 
   .ums-stat-accent {
@@ -175,12 +176,41 @@
     border-radius: 28px 28px 0 0;
   }
 
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-reveal {
+    animation: fade-up 0.55s ease-out both;
+  }
+
+  .hero-status-ping {
+    animation: hero-status-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes hero-status-ping {
+    75%,
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .ums-card:hover {
       transform: none;
     }
     .animate-float-soft,
-    .animate-fade-up {
+    .animate-fade-up,
+    .hero-reveal,
+    .hero-status-ping {
       animation: none !important;
     }
   }

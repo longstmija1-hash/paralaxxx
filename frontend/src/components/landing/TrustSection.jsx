@@ -5,23 +5,21 @@ import SectionShell from './ui/SectionShell'
 import MediaPlaceholder from './ui/MediaPlaceholder'
 import CountUpStat from './ui/CountUpStat'
 import RevealOnScroll from './ui/RevealOnScroll'
-import { TRUST_STATS } from '../../data/landingContent'
+import { TRUST_STATS, TRUST_HEADING } from '../../data/landingContent'
 
-const ICONS = [Users, TrendingUp, Award, Shield]
+const ICONS = [Users, Award, TrendingUp, Shield]
 
 export default function TrustSection() {
   return (
     <SectionShell variant="white">
       <RevealOnScroll>
-        <h2 className="section-heading mb-10 md:mb-14 max-w-2xl">
-          ПАРАЛЛАКС помогает прийти к желаемому результату
-        </h2>
+        <h2 className="section-heading mb-10 md:mb-14 max-w-2xl">{TRUST_HEADING}</h2>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           <MediaPlaceholder
             label="Групповое фото учеников"
             aspect="4/5"
-            overlayText="100+ учеников уже с нами"
+            overlayText="Два трека — одна команда"
           />
 
           <div className="flex flex-col gap-4">

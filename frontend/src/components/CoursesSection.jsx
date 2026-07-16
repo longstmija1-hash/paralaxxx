@@ -7,116 +7,80 @@ import UmsCard from './landing/ui/UmsCard'
 import UmsButton from './landing/ui/UmsButton'
 import MediaPlaceholder from './landing/ui/MediaPlaceholder'
 import PillToggle from './landing/PillToggle'
+import { COURSES_HEADING, COURSES_SUB } from '../data/landingContent'
 
 const courses = [
   {
-    id: 'school',
-    level: 'Школа',
-    age: '1–11 класс',
-    emoji: '🏫',
-    tagline: 'Вся школьная программа в одном месте',
-    desc: 'Устраняем пробелы, подтягиваем оценки и разбираемся со сложной домашкой',
+    id: 'foundation',
+    level: 'Фундамент',
+    age: 'школа и ОГЭ / ЕГЭ',
+    emoji: '📐',
+    tagline: 'Закрываем пробелы и готовим к ОГЭ/ЕГЭ на 85+',
+    desc: 'Понятное объяснение сложных тем. Без зубрёжки — через логику и практику.',
     subjects: [
       {
-        name: 'Естественные науки',
-        icon: '🧬',
-        hook: 'Понимаем природу, а не заучиваем',
-        detail: 'Лабораторные разборы, схемы и тесты в формате школьных контрольных.',
-        topics: ['Биология', 'Химия', 'Физика'],
+        name: 'Математика',
+        icon: '∑',
+        hook: 'База и профиль без страха формул',
+        detail: 'От пробелов в алгебре до задач второй части. Контрольные, олимпиадный запас, ОГЭ и ЕГЭ.',
+        topics: ['База', 'Профиль', 'Пробники'],
         format: 'Занятие 60 мин',
       },
       {
-        name: 'Гуманитарные науки',
-        icon: '📚',
-        hook: 'Пишем, аргументируем, запоминаем',
-        detail: 'Эссе, анализ текстов, даты и понятия — с шпаргалками от куратора.',
-        topics: ['Русский', 'История', 'Обществознание'],
+        name: 'Физика',
+        icon: '⚛',
+        hook: 'Понимаем явления, а не заучиваем',
+        detail: 'Схемы, разборы и задачи в формате школьных контрольных и экзаменов.',
+        topics: ['Механика', 'Электричество', 'ОГЭ/ЕГЭ'],
         format: 'Занятие 60 мин',
       },
       {
-        name: 'Точные науки',
-        icon: '📐',
-        hook: 'Считаем уверенно с нуля',
-        detail: 'От арифметики до 100 баллов: контрольные, олимпиады, подготовка к ЕГЭ и ОГЭ.',
-        topics: ['Математика', 'Информатика', 'Геометрия'],
+        name: 'Русский язык',
+        icon: '✍',
+        hook: 'Пишем и аргументируем уверенно',
+        detail: 'Орфография, сочинения, анализ текста — с обратной связью куратора.',
+        topics: ['Грамотность', 'Сочинение', 'ОГЭ/ЕГЭ'],
         format: 'Занятие 60 мин',
       },
     ],
-    highlights: ['Маршрут по пробелам', 'Разбор ДЗ live', 'Отчёты родителям'],
-    stat: { label: 'Предметов', value: '15+' },
-  },
-  {
-    id: 'exams',
-    level: 'Экзамены',
-    age: '9 и 11 класс',
-    emoji: '🔥',
-    tagline: 'Целенаправленно на 90+ баллов',
-    desc: 'Ловушки ФИПИ, пробники и психологическая подготовка — знаем, где теряют баллы.',
-    subjects: [
-      {
-        name: 'Подготовка к ОГЭ',
-        icon: '📝',
-        hook: 'Закрываем все части за год',
-        detail: 'Типовые задания, тайминг, разбор каждой ошибки в личном чате.',
-        topics: ['Математика', 'Русский', 'Обществознание'],
-        format: 'Интенсив 9 кл',
-      },
-      {
-        name: 'Подготовка к ЕГЭ',
-        icon: '🎯',
-        hook: 'Вторая часть — наша стихия',
-        detail: 'Эссе, устная, профильные предметы: тренируем по критериям экспертов.',
-        topics: ['Профиль', 'Устная', 'Эссе'],
-        format: '3× / нед',
-      },
-      {
-        name: 'Интенсив-практикум',
-        icon: '⚡',
-        hook: 'Спринт перед экзаменом',
-        detail: '2–3 занятия в неделю: только пробники, слабые темы и финальный разгон.',
-        topics: ['Пробники', 'Стресс', 'Тайминг'],
-        format: 'Март–Июнь',
-      },
-    ],
-    highlights: ['Пробники ФИПИ', 'Разбор с куратором', 'План до экзамена'],
-    stat: { label: 'Средний балл', value: '85+' },
-    featured: true,
+    highlights: ['Оценки без стресса', 'Пробники ФИПИ', 'Поддержка куратора'],
+    stat: { label: 'Фокус', value: '3' },
   },
   {
     id: 'it',
-    level: 'IT-Навыки',
-    age: 'любой возраст',
+    level: 'IT и профессия',
+    age: 'от алгоритмики до продукта',
     emoji: '💻',
-    tagline: 'От первых игр до серьёзных проектов',
-    desc: 'Собираем портфолио, которое реально показывают на олимпиадах и в вузе.',
+    tagline: 'От потребителя игр к создателю IT-продуктов',
+    desc: 'Хард-скиллы на реальных задачах. Практика, которая остаётся с учеником.',
     subjects: [
       {
         name: 'Scratch',
         icon: '🎮',
-        hook: 'Первые игры за 2 недели',
-        detail: 'Анимация, логика, сторителлинг — дети видят результат сразу.',
-        topics: ['Спрайты', 'Циклы', 'Игры'],
-        format: 'Для 7–11 лет',
+        hook: 'Алгоритмика и логика через игры',
+        detail: 'Спрайты, циклы, сюжета — первый опыт «я создаю», а не только потребляю.',
+        topics: ['Логика', 'Игры', 'Проекты'],
+        format: '7–12 лет',
       },
       {
-        name: 'Python / C++',
-        icon: '🐍',
-        hook: 'Алгоритмы без скуки',
-        detail: 'ООП, задачи уровня Codeforces, подготовка к олимпиадам и ЕГЭ по информатике.',
-        topics: ['Алгоритмы', 'ООП', 'Олимпиады'],
+        name: 'Frontend',
+        icon: '🌐',
+        hook: 'Свой сайт и интерфейсы',
+        detail: 'HTML, CSS, современный фронтенд — деплой и проект в портфолио на GitHub.',
+        topics: ['HTML/CSS', 'UI', 'GitHub'],
         format: '12+ лет',
       },
       {
-        name: 'Web-разработка',
-        icon: '🌐',
-        hook: 'Свой сайт в портфолио',
-        detail: 'HTML, CSS, React — деплой на GitHub Pages, первый фриланс-проект.',
-        topics: ['React', 'UI/UX', 'Deploy'],
-        format: 'Проект 6 нед',
+        name: 'Системная аналитика',
+        icon: '🗺',
+        hook: 'Проектирование и архитектура',
+        detail: 'Учимся описывать системы, требования и логику продукта — навык, который ценят в IT.',
+        topics: ['Требования', 'Схемы', 'Продукт'],
+        format: '14+ лет',
       },
     ],
-    highlights: ['GitHub-портфолио', 'Хакатоны', 'Менторы из IT'],
-    stat: { label: 'Проектов', value: '50+' },
+    highlights: ['Портфолио на GitHub', 'Реальные проекты', 'Менторство практиков'],
+    stat: { label: 'Программ', value: '3' },
   },
 ]
 
@@ -125,9 +89,11 @@ const CATEGORY_OPTIONS = courses.map((c) => ({ id: c.id, label: c.level }))
 function SubjectCardDesktop({ subject }) {
   return (
     <UmsCard padding="sm" className="h-full flex flex-col">
-      <MediaPlaceholder label="Иллюстрация предмета" aspect="16/9" className="mb-4" rounded="20px" />
+      <MediaPlaceholder label="Иллюстрация" aspect="16/9" className="mb-4" rounded="20px" />
       <div className="flex items-start justify-between gap-2 mb-2">
-        <span className="text-2xl leading-none">{subject.icon}</span>
+        <span className="text-2xl leading-none" aria-hidden>
+          {subject.icon}
+        </span>
         <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full border border-ums-border bg-[#fafafa] text-ums-muted">
           {subject.format}
         </span>
@@ -158,7 +124,7 @@ function SubjectRowMobile({ subject, open, onToggle }) {
         className="w-full flex items-center gap-3 p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ums-accent focus-visible:ring-inset"
         aria-expanded={open}
       >
-        <span className="w-10 h-10 rounded-xl bg-ums-tint flex items-center justify-center text-xl shrink-0" aria-hidden>
+        <span className="w-10 h-10 rounded-xl bg-ums-tint flex items-center justify-center text-lg shrink-0" aria-hidden>
           {subject.icon}
         </span>
         <div className="min-w-0 flex-1">
@@ -191,7 +157,7 @@ function SubjectRowMobile({ subject, open, onToggle }) {
 }
 
 export default function CoursesSection({ openModal }) {
-  const [activeId, setActiveId] = useState('school')
+  const [activeId, setActiveId] = useState('foundation')
   const [openSubject, setOpenSubject] = useState(null)
   const active = courses.find((c) => c.id === activeId) ?? courses[0]
 
@@ -203,10 +169,8 @@ export default function CoursesSection({ openModal }) {
   return (
     <SectionShell id="courses" variant="white">
       <div className="text-center mb-6 sm:mb-10">
-        <h2 className="section-heading">Наши направления</h2>
-        <p className="section-sub mx-auto text-base sm:text-lg">
-          Школа, экзамены и IT — выбери направление и посмотри программы
-        </p>
+        <h2 className="section-heading">{COURSES_HEADING}</h2>
+        <p className="section-sub mx-auto text-base sm:text-lg">{COURSES_SUB}</p>
       </div>
 
       <div className="max-w-xl mx-auto mb-6 sm:mb-10">
@@ -217,7 +181,9 @@ export default function CoursesSection({ openModal }) {
         <div className="flex items-start justify-between gap-3 mb-4 sm:mb-8">
           <div className="min-w-0">
             <div className="flex items-center gap-2.5 sm:gap-3 mb-1.5 sm:mb-2">
-              <span className="text-2xl sm:text-3xl">{active.emoji}</span>
+              <span className="text-2xl sm:text-3xl" aria-hidden>
+                {active.emoji}
+              </span>
               <div className="min-w-0">
                 <div className="text-[10px] sm:text-xs text-ums-muted uppercase tracking-wide">{active.age}</div>
                 <h3 className="text-xl sm:text-2xl font-black text-[#111]">{active.level}</h3>
@@ -246,7 +212,6 @@ export default function CoursesSection({ openModal }) {
           ))}
         </ul>
 
-        {/* Mobile: compact accordion rows */}
         <div className="sm:hidden space-y-2 mb-5">
           {active.subjects.map((s) => (
             <SubjectRowMobile
@@ -258,16 +223,24 @@ export default function CoursesSection({ openModal }) {
           ))}
         </div>
 
-        {/* Desktop / tablet: card grid */}
         <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           {active.subjects.map((s) => (
             <SubjectCardDesktop key={s.name} subject={s} />
           ))}
         </div>
 
-        <UmsButton onClick={() => openModal({ selectedProgram: active.level })} className="w-full sm:w-auto">
-          Записаться на {active.level.toLowerCase()}
-        </UmsButton>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <UmsButton onClick={() => openModal({ selectedProgram: active.level })} className="w-full sm:w-auto">
+            Записаться на «{active.level}»
+          </UmsButton>
+          <UmsButton
+            variant="secondary"
+            onClick={() => openModal({ selectedProgram: 'Комплекс: фундамент + IT' })}
+            className="w-full sm:w-auto"
+          >
+            Собрать комплекс школа + IT
+          </UmsButton>
+        </div>
       </UmsCard>
     </SectionShell>
   )
