@@ -30,19 +30,35 @@ export const HERO_CONTENT = {
   titleLine1: 'Школьные оценки, экзамены',
   titleLine2: 'и реальная IT-профессия —',
   titleAccentLine: 'на одной платформе',
+  /** Compact mobile headline — product-first first screen */
+  titleMobileLine1: 'Школа и IT —',
+  titleMobileAccent: 'в одной системе',
   /** Full desktop-friendly line used as aria / SEO backup */
   titleFull:
     'Школьные оценки, экзамены и реальная IT-профессия — на одной платформе',
   subtitle:
     'Уютная онлайн-школа. Вытягиваем математику, физику и русский. Параллельно учим писать код — от Scratch до Frontend и Системной аналитики. Без хаоса и зубрёжки.',
   subtitleMobile:
-    'Математика, физика, русский и IT — от Scratch до Frontend. Без хаоса и зубрёжки.',
+    'Оценки, экзамены и IT-профессия без хаоса и зубрёжки.',
   tracks: [
-    { label: 'Фундамент', hint: 'Математика · Физика · Русский' },
-    { label: 'IT и профессия', hint: 'Scratch · Frontend · Аналитика' },
+    {
+      id: 'school',
+      label: 'Фундамент',
+      shortLabel: 'Школа',
+      hint: 'Математика · Физика · Русский',
+      icon: 'book',
+    },
+    {
+      id: 'it',
+      label: 'IT и профессия',
+      shortLabel: 'IT',
+      hint: 'Scratch · Frontend · Аналитика',
+      icon: 'code',
+    },
   ],
   primaryCta: 'Получить консультацию',
   secondaryCta: 'Смотреть направления',
+  trustLine: 'Подберём нагрузку бесплатно',
 }
 
 export const HERO_STATS = [
